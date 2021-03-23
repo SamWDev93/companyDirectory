@@ -9,7 +9,7 @@ $(document).ready(() => {
         console.log(result);
         for (let i = 0; i < result.data.length; i++) {
           $(".records").append(
-            `<div class='card'><img src='./libs/images/user-icon.png' ><div class='card-body'><p class='fullName'>${result.data[i].firstName} ${result.data[i].lastName}</p><p class='jobTitle'>${result.data[i].jobTitle}</p><p class='department'>${result.data[i].department}</p><p class='location'>${result.data[i].location}</p><p class='email'>${result.data[i].email}</p><button type='button' class='btn btn-primary btn-sm'>Edit</button><button type='button' class='btn btn-danger btn-sm'>Delete</button></div></div>`
+            `<div class='card'><table><tr><td class='alignCenter'><img src='./libs/images/user-icon.png'></td></tr></table><div class='card-body'><table><tr><td class='fullName alignCenter'><b>${result.data[i].firstName} ${result.data[i].lastName}</b><a href='mailto:${result.data[i].email}'><i class="fas fa-envelope-open-text"></i></a></td></tr></table><table class='table table-striped mt-4'><tr><td class='alignLeft'><i class="fas fa-network-wired"></i><b>Department: </b></td><td class='department alignRight'>${result.data[i].department}</td></tr><tr><td class='alignLeft'><i class="fas fa-search-location"></i><b>Location:</b></td><td class='location alignRight'>${result.data[i].location}</td></tr></table><table class='mt-5'><tr><td class='alignCenter'><button type='button' class='btn btn-primary btn-sm'>Edit</button></td><td class='alignCenter'><button type='button' class='btn btn-danger btn-sm'>Delete</button></td></tr></table></div></div>`
           );
         }
       }

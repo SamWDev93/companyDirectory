@@ -1,0 +1,44 @@
+.records {
+  height: 90vh;
+  width: 80vw;
+  flex-wrap: wrap;
+  overflow-y: scroll;
+
+  .card {
+    width: 22rem;
+    margin-top: 2rem;
+    box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.7);
+
+    table,
+    tr {
+      width: 100%;
+
+      .alignLeft {
+        text-align: left;
+      }
+      .alignCenter {
+        text-align: center;
+      }
+      .alignRight {
+        text-align: right;
+      }
+    }
+
+    .table-striped {
+      font-size: 0.8rem;
+    }
+
+    .fa-envelope-open-text {
+      margin-left: 1rem;
+    }
+
+    .fa-search-location,
+    .fa-network-wired {
+      margin-right: 1rem;
+    }
+
+    .btn {
+      width: 5rem;
+    }
+  }
+}
