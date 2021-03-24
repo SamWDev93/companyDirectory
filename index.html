@@ -59,7 +59,27 @@
 
     <div class=".container-fluid d-flex">
       <!-- Search / Filter Section -->
-      <div class="filter bg-light"></div>
+      <div class="filter bg-light">
+        <div class="searchFilterContainer">
+          <h5>Search:</h5>
+          <select name="searchFor" id="searchFor">
+            <option value="employees">Employees</option>
+            <option value="departments">Departments</option>
+            <option value="locations">Locations</option>
+          </select>
+          <br />
+          <br />
+          <br />
+          <h5>Filter By:</h5>
+          <select name="filterByDepartment" id="filterByDepartment">
+            <option value="allDepartments">All Departments</option></select
+          ><br />
+          <br />
+          <select name="filterByLocation" id="filterByLocation">
+            <option value="allLocation">All Locations</option>
+          </select>
+        </div>
+      </div>
 
       <!-- Records Section -->
       <div class="records d-flex justify-content-evenly bg-light"></div>

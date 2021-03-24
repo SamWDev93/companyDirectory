@@ -3,4 +3,14 @@
   width: 20vw;
   box-shadow: 5px 0 5px -2px #888;
   z-index: 99;
+
+  .searchFilterContainer {
+    padding-left: 3rem;
+    padding-top: 2.5rem;
+
+    select {
+      width: 15rem;
+      font-size: 0.9rem;
+    }
+  }
 }
