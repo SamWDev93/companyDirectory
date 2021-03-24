@@ -25,11 +25,32 @@ $(document).ready(() => {
 // Dynamically populate department select filter
 $.ajax({
   url: "libs/php/getAllDepartments.php",
-  type: "POST",
+  type: "GET",
   dataType: "json",
   success: function (result) {
     $.each(result.data, function (index) {
       $("#filterByDepartment").append(
+        $("<option>", {
+          value: result.data[index].id,
+          text: result.data[index].name,
+        })
+      );
+    });
+  },
+
+  error: function (jqXHR, textStatus, errorThrown) {
+    console.log(errorThrown);
+  },
+});
+
+// Dynamically populate location select filter
+$.ajax({
+  url: "libs/php/getAllLocations.php",
+  type: "GET",
+  dataType: "json",
+  success: function (result) {
+    $.each(result.data, function (index) {
+      $("#filterByLocation").append(
         $("<option>", {
           value: result.data[index].id,
           text: result.data[index].name,
