@@ -2,4 +2,13 @@
   height: 10vh;
   box-shadow: 5px 5px 3px #888;
   z-index: 98;
+  padding-left: 3rem;
+  padding-right: 3rem;
+
+  #addEmployeeBtn,
+  #addDepartmentBtn,
+  #addLocationBtn {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
 }
