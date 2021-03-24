@@ -1,7 +1,8 @@
+// Retrieve all records on load
 $(document).ready(() => {
   $.ajax({
     url: "libs/php/getAll.php",
-    type: "get",
+    type: "GET",
     dataType: "json",
 
     success: function (result) {
@@ -19,4 +20,25 @@ $(document).ready(() => {
       console.log(errorThrown);
     },
   });
+});
+
+// Dynamically populate department select filter
+$.ajax({
+  url: "libs/php/getAllDepartments.php",
+  type: "POST",
+  dataType: "json",
+  success: function (result) {
+    $.each(result.data, function (index) {
+      $("#filterByDepartment").append(
+        $("<option>", {
+          value: result.data[index].id,
+          text: result.data[index].name,
+        })
+      );
+    });
+  },
+
+  error: function (jqXHR, textStatus, errorThrown) {
+    console.log(errorThrown);
+  },
 });
