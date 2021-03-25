@@ -1,3 +1,7 @@
+//Global variables
+var totalRecords;
+
+// GET functions
 function getAllEmployees() {
   $.ajax({
     url: "libs/php/getAll.php",
@@ -7,7 +11,17 @@ function getAllEmployees() {
     success: function (result) {
       if (result.status.name == "ok") {
         console.log(result);
+        totalRecords = 0;
+
         $(".records").empty();
+        for (let i = 0; i < result.data.length; i++) {
+          totalRecords++;
+        }
+
+        $(".records").append(
+          `<div class='totalRecords container-fluid'><h5>Displaying ${totalRecords} Employee Records:</h5></div>`
+        );
+
         for (let i = 0; i < result.data.length; i++) {
           $(".records").append(
             `<div class='card'><table><tr><td class='alignCenter'><img src='./libs/images/user-icon.png'></td></tr></table><div class='card-body'><table><tr><td class='fullName alignCenter'><b>${result.data[i].firstName} ${result.data[i].lastName}</b><a href='mailto:${result.data[i].email}'><i class="fas fa-envelope-open-text"></i></a></td></tr></table><table class='table table-striped mt-4'><tr><td class='alignLeft'><i class="fas fa-network-wired"></i><b>Department: </b></td><td class='department alignRight'>${result.data[i].department}</td></tr><tr><td class='alignLeft'><i class="fas fa-search-location"></i><b>Location:</b></td><td class='location alignRight'>${result.data[i].location}</td></tr></table><table class='mt-5'><tr><td class='alignCenter'><button type='button' class='btn btn-primary btn-sm'>Edit</button></td><td class='alignCenter'><button type='button' class='btn btn-danger btn-sm'>Delete</button></td></tr></table></div></div>`
@@ -31,7 +45,17 @@ function getAllDepartments() {
     success: function (result) {
       if (result.status.name == "ok") {
         console.log(result);
+        totalRecords = 0;
+
         $(".records").empty();
+        for (let i = 0; i < result.data.length; i++) {
+          totalRecords++;
+        }
+
+        $(".records").append(
+          `<div class='totalRecords container-fluid'><h5>Displaying ${totalRecords} Department Records:</h5></div>`
+        );
+
         for (let i = 0; i < result.data.length; i++) {
           $(".records").append(
             `<div class='card'><table><tr><td class='departmentIcon alignCenter'><img src='./libs/images/department-icon.png'></td></tr></table><div class='card-body'><table><tr><td class='departmentName alignCenter'><b>${result.data[i].name}</b></td></tr></table><table class='mt-5'><tr><td class='alignCenter'><button type='button' class='btn btn-primary btn-sm'>Edit</button></td><td class='alignCenter'><button type='button' class='btn btn-danger btn-sm'>Delete</button></td></tr></table></div></div>`
@@ -55,7 +79,16 @@ function getAllLocations() {
     success: function (result) {
       if (result.status.name == "ok") {
         console.log(result);
+        totalRecords = 0;
+
         $(".records").empty();
+        for (let i = 0; i < result.data.length; i++) {
+          totalRecords++;
+        }
+
+        $(".records").append(
+          `<div class='totalRecords container-fluid'><h5>Displaying ${totalRecords} Location Records:</h5></div>`
+        );
         for (let i = 0; i < result.data.length; i++) {
           $(".records").append(
             `<div class='card'><table><tr><td class='locationIcon alignCenter'><img src='./libs/images/location-icon.png'></td></tr></table><div class='card-body'><table><tr><td class='departmentName alignCenter'><b>${result.data[i].name}</b></td></tr></table><table class='mt-5'><tr><td class='alignCenter'><button type='button' class='btn btn-primary btn-sm'>Edit</button></td><td class='alignCenter'><button type='button' class='btn btn-danger btn-sm'>Delete</button></td></tr></table></div></div>`
