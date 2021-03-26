@@ -180,6 +180,8 @@ function employeeFilterByLocation() {
 
 // Retrieve all records on load
 $(document).ready(() => {
+  $("#addDepartmentBtn").hide();
+  $("#addLocationBtn").hide();
   getAllEmployees();
 });
 
@@ -227,30 +229,43 @@ $.ajax({
 
 $("#searchFor").change(function () {
   if ($("#searchFor").val() == "employees") {
+    $("#addEmployeeBtn").show();
+    $("#addDepartmentBtn").hide();
+    $("#addLocationBtn").hide();
     getAllEmployees();
   }
 
   if ($("#searchFor").val() == "departments") {
+    $("#addEmployeeBtn").hide();
+    $("#addDepartmentBtn").show();
+    $("#addLocationBtn").hide();
     getAllDepartments();
   }
 
   if ($("#searchFor").val() == "locations") {
+    $("#addEmployeeBtn").hide();
+    $("#addDepartmentBtn").hide();
+    $("#addLocationBtn").show();
     getAllLocations();
   }
 });
 
 $("#filterByDepartment").change(function () {
   if ($("#filterByDepartment").val() == "allDepartments") {
+    $("#filterByLocation").attr("disabled", false);
     getAllEmployees();
   } else {
+    $("#filterByLocation").attr("disabled", true);
     employeeFilterByDepartment();
   }
 });
 
 $("#filterByLocation").change(function () {
   if ($("#filterByLocation").val() == "allLocations") {
+    $("#filterByDepartment").attr("disabled", false);
     getAllEmployees();
   } else {
+    $("#filterByDepartment").attr("disabled", true);
     employeeFilterByLocation();
   }
 });
