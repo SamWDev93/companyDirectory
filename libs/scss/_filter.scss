@@ -19,5 +19,10 @@
     #addLocationBtn {
       margin-top: 3rem;
     }
+
+    #addDepartmentBtn,
+    #addLocationBtn {
+      display: none;
+    }
   }
 }

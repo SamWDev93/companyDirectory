@@ -63,18 +63,38 @@
           <select name="filterByLocation" id="filterByLocation">
             <option value="allLocations">All Locations</option>
           </select>
+
+          <!-- Add Buttons -->
           <div>
-            <button type="button" id="addEmployeeBtn" class="btn btn-primary">
+            <button
+              type="button"
+              id="addEmployeeBtn"
+              class="btn btn-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#addEmployeeModal"
+            >
               Add Employee
             </button>
           </div>
           <div>
-            <button type="button" id="addDepartmentBtn" class="btn btn-primary">
+            <button
+              type="button"
+              id="addDepartmentBtn"
+              class="btn btn-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#addDepartmentModal"
+            >
               Add Department
             </button>
           </div>
           <div>
-            <button type="button" id="addLocationBtn" class="btn btn-primary">
+            <button
+              type="button"
+              id="addLocationBtn"
+              class="btn btn-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#addLocationModal"
+            >
               Add Location
             </button>
           </div>
@@ -83,6 +103,358 @@
 
       <!-- Records Section -->
       <div class="records d-flex justify-content-center bg-light"></div>
+
+      <!-- Add Employee Modal -->
+      <div
+        class="modal fade"
+        id="addEmployeeModal"
+        tabindex="-1"
+        aria-labelledby="addEmployeeModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-body">
+              <form>
+                <div class="mb-3">
+                  <label for="firstNameInput" class="form-label"
+                    >First Name:</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="firstNameInput"
+                    placeholder="Joe"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="lastNameInput" class="form-label"
+                    >Last Name:</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="lastNameInput"
+                    placeholder="Bloggs"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="emailInput" class="form-label">Email:</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="emailInput"
+                    placeholder="joebloggs@xyzltd.com"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="departmentSelect" class="form-label"
+                    >Department:</label
+                  >
+                  <select class="form-control" id="departmentSelect">
+                    <option value="selectADepartment">
+                      Select a Department
+                    </option>
+                  </select>
+                </div>
+                <div class="mb-3 form-check">
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="employeeConfirmAddCheck"
+                  />
+                  <label class="form-check-label" for="employeeConfirmAddCheck"
+                    >I confirm the employee details provided are correct.</label
+                  >
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                id="employeeConfirmAddBtn"
+                class="btn btn-primary"
+                disabled
+              >
+                Add Employee
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add Department Modal -->
+      <div
+        class="modal fade"
+        id="addDepartmentModal"
+        tabindex="-1"
+        aria-labelledby="addDepartmentModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-body">
+              <form>
+                <div class="mb-3">
+                  <label for="departmentNameInput" class="form-label"
+                    >Department:</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="departmentNameInput"
+                    placeholder="Procurement"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="locationSelect" class="form-label"
+                    >Location:</label
+                  >
+                  <select class="form-control" id="locationSelect">
+                    <option value="selectALocation">Select a Location</option>
+                  </select>
+                </div>
+                <div class="mb-3 form-check">
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="departmentConfirmAddCheck"
+                  />
+                  <label
+                    class="form-check-label"
+                    for="departmentConfirmAddCheck"
+                    >I confirm the department details provided are
+                    correct.</label
+                  >
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                id="departmentConfirmAddBtn"
+                class="btn btn-primary"
+                disabled
+              >
+                Add Department
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add Location Modal -->
+      <div
+        class="modal fade"
+        id="addLocationModal"
+        tabindex="-1"
+        aria-labelledby="addLocationModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-body">
+              <form>
+                <div class="mb-3">
+                  <label for="locationNameInput" class="form-label"
+                    >Location:</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="locationNameInput"
+                    placeholder="Amsterdam"
+                    required
+                  />
+                </div>
+                <div class="mb-3 form-check">
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="locationConfirmAddCheck"
+                  />
+                  <label class="form-check-label" for="locationConfirmAddCheck"
+                    >I confirm the location details provided are correct.</label
+                  >
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                id="locationConfirmAddBtn"
+                class="btn btn-primary"
+                disabled
+              >
+                Add Location
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Delete Employee Record Modal -->
+    <div
+      class="modal fade"
+      id="deleteEmployeeModal"
+      tabindex="-1"
+      aria-labelledby="deleteEmployeeModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="mb-3">
+              Are you sure you want to delete this employee record?
+            </div>
+            <div class="mb-3 form-check">
+              <input
+                type="checkbox"
+                class="form-check-input"
+                id="employeeConfirmDeleteCheck"
+              />
+              <label class="form-check-label" for="employeeConfirmDeleteCheck"
+                >Yes, I am sure.</label
+              >
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              id="employeeConfirmDeleteBtn"
+              class="btn btn-danger"
+              disabled
+            >
+              Delete Employee
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Delete Department Record Modal -->
+    <div
+      class="modal fade"
+      id="deleteDepartmentModal"
+      tabindex="-1"
+      aria-labelledby="deleteDepartmentModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="mb-3">
+              Are you sure you want to delete this department record?
+            </div>
+            <div class="mb-3 form-check">
+              <input
+                type="checkbox"
+                class="form-check-input"
+                id="departmentConfirmDeleteCheck"
+              />
+              <label class="form-check-label" for="departmentConfirmDeleteCheck"
+                >Yes, I am sure.</label
+              >
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              id="departmentConfirmDeleteBtn"
+              class="btn btn-danger"
+              disabled
+            >
+              Delete Department
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Delete Location Record Modal -->
+    <div
+      class="modal fade"
+      id="deleteLocationModal"
+      tabindex="-1"
+      aria-labelledby="deleteLocationModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="mb-3">
+              Are you sure you want to delete this location record?
+            </div>
+            <div class="mb-3 form-check">
+              <input
+                type="checkbox"
+                class="form-check-input"
+                id="locationConfirmDeleteCheck"
+              />
+              <label class="form-check-label" for="locationConfirmDeleteCheck"
+                >Yes, I am sure.</label
+              >
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              id="locationConfirmDeleteBtn"
+              class="btn btn-danger"
+              disabled
+            >
+              Delete Location
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Bootstrap JS CDN -->

@@ -23,8 +23,12 @@ function getAllEmployees() {
         );
 
         for (let i = 0; i < result.data.length; i++) {
+          if (result.data[i].jobTitle == "") {
+            result.data[i].jobTitle = "Unspecified";
+          }
           $(".records").append(
-            `<div class='card'><table><tr><td class='alignCenter'><img src='./libs/images/user-icon.png'></td></tr></table><div class='card-body'><table><tr><td class='fullName alignCenter'><b>${result.data[i].firstName} ${result.data[i].lastName}</b><a href='mailto:${result.data[i].email}'><i class="fas fa-envelope-open-text"></i></a></td></tr></table><table class='table table-striped mt-4'><tr><td class='alignLeft'><i class="fas fa-network-wired"></i><b>Department: </b></td><td class='department alignRight'>${result.data[i].department}</td></tr><tr><td class='alignLeft'><i class="fas fa-search-location"></i><b>Location:</b></td><td class='location alignRight'>${result.data[i].location}</td></tr></table><table class='mt-5'><tr><td class='alignCenter'><button type='button' class='btn btn-primary btn-sm'>Edit</button></td><td class='alignCenter'><button type='button' class='btn btn-danger btn-sm'>Delete</button></td></tr></table></div></div>`
+            `<div class='card'><table><tr><td class='alignCenter'><img src='./libs/images/user-icon.png'></td></tr></table><div class='card-body'><table><tr><td class='fullName alignCenter'><b>${result.data[i].firstName} ${result.data[i].lastName}</b><a href='mailto:${result.data[i].email}'><i class="fas fa-envelope-open-text"></i></a></td></tr></table><table class='table table-striped mt-4'><tr><td class='alignLeft'><i class="fas fa-briefcase"></i><b>Job Title: </b></td><td class='jobTitle alignRight'>${result.data[i].jobTitle}</td></tr><tr><td class='alignLeft'><i class="fas fa-network-wired"></i><b>Department: </b></td><td class='department alignRight'>${result.data[i].department}</td></tr><tr><td class='alignLeft'><i class="fas fa-search-location"></i><b>Location:</b></td><td class='location alignRight'>${result.data[i].location}</td></tr></table><table class='mt-5'><tr><td class='alignCenter'><button type='button' id='editEmployeeBtn' class='btn btn-primary btn-sm'>Edit</button></td><td class='alignCenter'><button type='button' id='deleteEmployeeBtn' class='btn btn-danger btn-sm' data-bs-toggle='modal'
+            data-bs-target='#deleteEmployeeModal'>Delete</button></td></tr></table></div></div>`
           );
         }
       }
@@ -58,7 +62,8 @@ function getAllDepartments() {
 
         for (let i = 0; i < result.data.length; i++) {
           $(".records").append(
-            `<div class='card'><table><tr><td class='departmentIcon alignCenter'><img src='./libs/images/department-icon.png'></td></tr></table><div class='card-body'><table><tr><td class='departmentName alignCenter'><b>${result.data[i].name}</b></td></tr></table><table class='mt-5'><tr><td class='alignCenter'><button type='button' class='btn btn-primary btn-sm'>Edit</button></td><td class='alignCenter'><button type='button' class='btn btn-danger btn-sm'>Delete</button></td></tr></table></div></div>`
+            `<div class='card'><table><tr><td class='departmentIcon alignCenter'><img src='./libs/images/department-icon.png'></td></tr></table><div class='card-body'><table><tr><td class='departmentName alignCenter'><b>${result.data[i].name}</b></td></tr></table><table class='mt-5'><tr><td class='alignCenter'><button type='button' id='editDepartmentBtn' class='btn btn-primary btn-sm'>Edit</button></td><td class='alignCenter'><button type='button' id='deleteDepartmentBtn' class='btn btn-danger btn-sm' data-bs-toggle='modal'
+            data-bs-target='#deleteDepartmentModal'>Delete</button></td></tr></table></div></div>`
           );
         }
       }
@@ -91,7 +96,8 @@ function getAllLocations() {
         );
         for (let i = 0; i < result.data.length; i++) {
           $(".records").append(
-            `<div class='card'><table><tr><td class='locationIcon alignCenter'><img src='./libs/images/location-icon.png'></td></tr></table><div class='card-body'><table><tr><td class='departmentName alignCenter'><b>${result.data[i].name}</b></td></tr></table><table class='mt-5'><tr><td class='alignCenter'><button type='button' class='btn btn-primary btn-sm'>Edit</button></td><td class='alignCenter'><button type='button' class='btn btn-danger btn-sm'>Delete</button></td></tr></table></div></div>`
+            `<div class='card'><table><tr><td class='locationIcon alignCenter'><img src='./libs/images/location-icon.png'></td></tr></table><div class='card-body'><table><tr><td class='departmentName alignCenter'><b>${result.data[i].name}</b></td></tr></table><table class='mt-5'><tr><td class='alignCenter'><button type='button' id='editLocationBtn' class='btn btn-primary btn-sm'>Edit</button></td><td class='alignCenter'><button type='button' id='deleteLocationBtn' class='btn btn-danger btn-sm' data-bs-toggle='modal'
+            data-bs-target='#deleteLocationModal'>Delete</button></td></tr></table></div></div>`
           );
         }
       }
@@ -267,5 +273,53 @@ $("#filterByLocation").change(function () {
   } else {
     $("#filterByDepartment").attr("disabled", true);
     employeeFilterByLocation();
+  }
+});
+
+$("#employeeConfirmAddCheck").click(function () {
+  if ($(this).is(":checked")) {
+    $("#employeeConfirmAddBtn").attr("disabled", false);
+  } else {
+    $("#employeeConfirmAddBtn").attr("disabled", true);
+  }
+});
+
+$("#departmentConfirmAddCheck").click(function () {
+  if ($(this).is(":checked")) {
+    $("#departmentConfirmAddBtn").attr("disabled", false);
+  } else {
+    $("#departmentConfirmAddBtn").attr("disabled", true);
+  }
+});
+
+$("#locationConfirmAddCheck").click(function () {
+  if ($(this).is(":checked")) {
+    $("#locationConfirmAddBtn").attr("disabled", false);
+  } else {
+    $("#locationConfirmAddBtn").attr("disabled", true);
+  }
+});
+
+$("#employeeConfirmDeleteCheck").click(function () {
+  if ($(this).is(":checked")) {
+    $("#employeeConfirmDeleteBtn").attr("disabled", false);
+  } else {
+    $("#employeeConfirmDeleteBtn").attr("disabled", true);
+  }
+});
+
+$("#departmentConfirmDeleteCheck").click(function () {
+  if ($(this).is(":checked")) {
+    $("#departmentConfirmDeleteBtn").attr("disabled", false);
+  } else {
+    $("#departmentConfirmDeleteBtn").attr("disabled", true);
+  }
+});
+
+$("#locationConfirmDeleteCheck").click(function () {
+  if ($(this).is(":checked")) {
+    $("#locationConfirmDeleteBtn").attr("disabled", false);
+  } else {
+    $("#locationConfirmDeleteBtn").attr("disabled", true);
   }
 });
