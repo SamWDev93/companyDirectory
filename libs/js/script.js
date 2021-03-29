@@ -1,5 +1,10 @@
 //Global variables
 var totalRecords;
+var deleteLocationID = "test";
+function updateDeleteLocationID() {
+  deleteLocationID = $(".locationID").text();
+  console.log(deleteLocationID);
+}
 
 // GET functions
 function getAllEmployees() {
@@ -96,10 +101,68 @@ function getAllLocations() {
         );
         for (let i = 0; i < result.data.length; i++) {
           $(".records").append(
-            `<div class='card'><table><tr><td class='locationIcon alignCenter'><img src='./libs/images/location-icon.png'></td></tr></table><div class='card-body'><table><tr><td class='departmentName alignCenter'><b>${result.data[i].name}</b></td></tr></table><table class='mt-5'><tr><td class='alignCenter'><button type='button' id='editLocationBtn' class='btn btn-primary btn-sm'>Edit</button></td><td class='alignCenter'><button type='button' id='deleteLocationBtn' class='btn btn-danger btn-sm' data-bs-toggle='modal'
+            `<div class='card'><table><tr><td class='locationIcon alignCenter'><img src='./libs/images/location-icon.png'></td></tr></table><div class='card-body'><table><tr><td class='departmentName alignCenter'><b>${result.data[i].name}</b></td></tr></table><table id='locationIDTable'><tr><td class='locationID alignCenter'>${result.data[i].id}</td></tr></table><table class='mt-5'><tr><td class='alignCenter'><button type='button' id='editLocationBtn' class='btn btn-primary btn-sm'>Edit</button></td><td class='alignCenter'><button type='button' id='deleteLocationBtn' class='btn btn-danger btn-sm' data-bs-toggle='modal'
             data-bs-target='#deleteLocationModal'>Delete</button></td></tr></table></div></div>`
           );
         }
+      }
+    },
+
+    error: function (jqXHR, textStatus, errorThrown) {
+      console.log(errorThrown);
+    },
+  });
+}
+
+// Insert functions
+function insertNewLocation() {
+  $.ajax({
+    url: "libs/php/insertLocation.php",
+    type: "POST",
+    dataType: "json",
+    data: {
+      name: $("#locationNameInput").val(),
+    },
+
+    success: function (result) {
+      if (result.status.name == "ok") {
+        console.log("Location successfully added");
+        $("#addLocationModal").modal("hide");
+        $(document).ready(function () {
+          getAllLocations();
+        });
+        $("#locationNameInput").val("");
+        $("#locationConfirmAddCheck").prop("checked", false);
+        $("#locationConfirmAddBtn").attr("disabled", true);
+      }
+    },
+
+    error: function (jqXHR, textStatus, errorThrown) {
+      console.log(errorThrown);
+    },
+  });
+}
+
+// Delete functions
+function deleteLocation() {
+  $.ajax({
+    url: "libs/php/deleteLocationByID.php",
+    type: "POST",
+    dataType: "json",
+    data: {
+      id: deleteLocationID,
+    },
+
+    success: function (result) {
+      if (result.status.name == "ok") {
+        console.log("Location successfully deleted");
+        $("#addLocationModal").modal("hide");
+        $(document).ready(function () {
+          getAllLocations();
+        });
+        $("#locationNameInput").val("");
+        $("#locationConfirmAddCheck").prop("checked", false);
+        $("#locationConfirmAddBtn").attr("disabled", true);
       }
     },
 
@@ -233,6 +296,7 @@ $.ajax({
   },
 });
 
+// Show corresponding buttons for search select value
 $("#searchFor").change(function () {
   if ($("#searchFor").val() == "employees") {
     $("#addEmployeeBtn").show();
@@ -256,6 +320,7 @@ $("#searchFor").change(function () {
   }
 });
 
+// Disable location select on department select change
 $("#filterByDepartment").change(function () {
   if ($("#filterByDepartment").val() == "allDepartments") {
     $("#filterByLocation").attr("disabled", false);
@@ -266,6 +331,7 @@ $("#filterByDepartment").change(function () {
   }
 });
 
+// Disable department select on location select change
 $("#filterByLocation").change(function () {
   if ($("#filterByLocation").val() == "allLocations") {
     $("#filterByDepartment").attr("disabled", false);
@@ -276,6 +342,7 @@ $("#filterByLocation").change(function () {
   }
 });
 
+// Enable add buttons on change of confirmation checkbox
 $("#employeeConfirmAddCheck").click(function () {
   if ($(this).is(":checked")) {
     $("#employeeConfirmAddBtn").attr("disabled", false);
@@ -300,6 +367,7 @@ $("#locationConfirmAddCheck").click(function () {
   }
 });
 
+// Enable delete buttons on change of confirmation checkbox
 $("#employeeConfirmDeleteCheck").click(function () {
   if ($(this).is(":checked")) {
     $("#employeeConfirmDeleteBtn").attr("disabled", false);
@@ -322,4 +390,19 @@ $("#locationConfirmDeleteCheck").click(function () {
   } else {
     $("#locationConfirmDeleteBtn").attr("disabled", true);
   }
+});
+
+// Run insert routines on add button click
+$("#locationConfirmAddBtn").click(function () {
+  insertNewLocation();
+});
+
+// Get location ID for deletion
+$("#deleteLocationBtn").click(function () {
+  updateDeleteLocationID();
+});
+
+// Run delete routines on delete button click
+$("#locationConfirmDeleteBtn").click(function () {
+  deleteLocation();
 });
