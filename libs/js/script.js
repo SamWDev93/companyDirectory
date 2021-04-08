@@ -1,5 +1,6 @@
 //Global variables
 var totalRecords;
+var deleteDepartmentID = "No Department ID";
 var deleteLocationID = "No Location ID";
 
 // GET functions
@@ -64,7 +65,7 @@ function getAllDepartments() {
         for (let i = 0; i < result.data.length; i++) {
           $(".records").append(
             `<div class='card'><table><tr><td class='departmentIcon alignCenter'><img src='./libs/images/department-icon.png'></td></tr></table><div class='card-body'><table><tr><td class='departmentName alignCenter'><b>${result.data[i].name}</b></td></tr></table><table class='mt-5'><tr><td class='alignCenter'><button type='button' id='editDepartmentBtn' class='btn btn-primary btn-sm'>Edit</button></td><td class='alignCenter'><button type='button' id='deleteDepartmentBtn' class='btn btn-danger btn-sm' data-bs-toggle='modal'
-            data-bs-target='#deleteDepartmentModal'>Delete</button></td></tr></table></div></div>`
+            data-bs-target='#deleteDepartmentModal' data-department-id='${result.data[i].id}'>Delete</button></td></tr></table></div></div>`
           );
         }
       }
@@ -97,7 +98,7 @@ function getAllLocations() {
         );
         for (let i = 0; i < result.data.length; i++) {
           $(".records").append(
-            `<div class='card'><table><tr><td class='locationIcon alignCenter'><img src='./libs/images/location-icon.png'></td></tr></table><div class='card-body'><table><tr><td class='departmentName alignCenter'><b>${result.data[i].name}</b></td></tr></table><table class='mt-5'><tr><td class='alignCenter'><button type='button' id='editLocationBtn' class='btn btn-primary btn-sm'>Edit</button></td><td class='alignCenter'><button type='button' id='deleteLocationBtn' class='btn btn-danger btn-sm' data-bs-toggle='modal' data-bs-target='#deleteLocationModal' data-location-id="${result.data[i].id}">Delete</button></td></tr></table></div></div>`
+            `<div class='card'><table><tr><td class='locationIcon alignCenter'><img src='./libs/images/location-icon.png'></td></tr></table><div class='card-body'><table><tr><td class='departmentName alignCenter'><b>${result.data[i].name}</b></td></tr></table><table class='mt-5'><tr><td class='alignCenter'><button type='button' id='editLocationBtn' class='btn btn-primary btn-sm'>Edit</button></td><td class='alignCenter'><button type='button' id='deleteLocationBtn' class='btn btn-danger btn-sm' data-bs-toggle='modal' data-bs-target='#deleteLocationModal' data-location-id='${result.data[i].id}'>Delete</button></td></tr></table></div></div>`
           );
         }
       }
@@ -110,6 +111,36 @@ function getAllLocations() {
 }
 
 // Insert functions
+function insertNewDepartment() {
+  $.ajax({
+    url: "libs/php/insertDepartment.php",
+    type: "POST",
+    dataType: "json",
+    data: {
+      name: $("#departmentNameInput").val(),
+      locationID: $("#locationSelect").val(),
+    },
+
+    success: function (result) {
+      if (result.status.name == "ok") {
+        console.log("Department successfully added");
+        $("#addDepartmentModal").modal("hide");
+        $(document).ready(function () {
+          getAllDepartments();
+        });
+        $("#departmentNameInput").val("");
+        $("#locationSelect").val("selectALocation");
+        $("#departmentConfirmAddCheck").prop("checked", false);
+        $("#departmentConfirmAddBtn").attr("disabled", true);
+      }
+    },
+
+    error: function (jqXHR, textStatus, errorThrown) {
+      console.log(errorThrown);
+    },
+  });
+}
+
 function insertNewLocation() {
   $.ajax({
     url: "libs/php/insertLocation.php",
@@ -139,6 +170,33 @@ function insertNewLocation() {
 }
 
 // Delete functions
+function deleteDepartment() {
+  $.ajax({
+    url: "libs/php/deleteDepartmentByID.php",
+    type: "POST",
+    dataType: "json",
+    data: {
+      id: deleteDepartmentID,
+    },
+
+    success: function (result) {
+      if (result.status.name == "ok") {
+        console.log("Department successfully deleted");
+        $("#deleteDepartmentModal").modal("hide");
+        $(document).ready(function () {
+          getAllDepartments();
+        });
+        $("#departmentConfirmDeleteCheck").prop("checked", false);
+        $("#departmentConfirmDeleteBtn").attr("disabled", true);
+      }
+    },
+
+    error: function (jqXHR, textStatus, errorThrown) {
+      console.log(errorThrown);
+    },
+  });
+}
+
 function deleteLocation() {
   $.ajax({
     url: "libs/php/deleteLocationByID.php",
@@ -290,6 +348,27 @@ $.ajax({
   },
 });
 
+// Dynamically populate location select in add department modal
+$.ajax({
+  url: "libs/php/getAllLocations.php",
+  type: "GET",
+  dataType: "json",
+  success: function (result) {
+    $.each(result.data, function (index) {
+      $("#locationSelect").append(
+        $("<option>", {
+          value: result.data[index].id,
+          text: result.data[index].name,
+        })
+      );
+    });
+  },
+
+  error: function (jqXHR, textStatus, errorThrown) {
+    console.log(errorThrown);
+  },
+});
+
 // Show corresponding buttons for search select value
 $("#searchFor").change(function () {
   if ($("#searchFor").val() == "employees") {
@@ -387,8 +466,18 @@ $("#locationConfirmDeleteCheck").click(function () {
 });
 
 // Run insert routines on add button click
+$("#departmentConfirmAddBtn").click(function () {
+  insertNewDepartment();
+});
+
 $("#locationConfirmAddBtn").click(function () {
   insertNewLocation();
+});
+
+// Get deaprtment ID for deletion
+$("#deleteDepartmentModal").on("show.bs.modal", function (e) {
+  deleteDepartmentID = $(e.relatedTarget).data("department-id");
+  console.log(deleteDepartmentID);
 });
 
 // Get location ID for deletion
@@ -398,6 +487,10 @@ $("#deleteLocationModal").on("show.bs.modal", function (e) {
 });
 
 // Run delete routines on delete button click
+$("#departmentConfirmDeleteBtn").click(function () {
+  deleteDepartment();
+});
+
 $("#locationConfirmDeleteBtn").click(function () {
   deleteLocation();
 });
