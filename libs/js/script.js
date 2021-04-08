@@ -1,10 +1,6 @@
 //Global variables
 var totalRecords;
-var deleteLocationID = "test";
-function updateDeleteLocationID() {
-  deleteLocationID = $(".locationID").text();
-  console.log(deleteLocationID);
-}
+var deleteLocationID = "No Location ID";
 
 // GET functions
 function getAllEmployees() {
@@ -101,8 +97,7 @@ function getAllLocations() {
         );
         for (let i = 0; i < result.data.length; i++) {
           $(".records").append(
-            `<div class='card'><table><tr><td class='locationIcon alignCenter'><img src='./libs/images/location-icon.png'></td></tr></table><div class='card-body'><table><tr><td class='departmentName alignCenter'><b>${result.data[i].name}</b></td></tr></table><table id='locationIDTable'><tr><td class='locationID alignCenter'>${result.data[i].id}</td></tr></table><table class='mt-5'><tr><td class='alignCenter'><button type='button' id='editLocationBtn' class='btn btn-primary btn-sm'>Edit</button></td><td class='alignCenter'><button type='button' id='deleteLocationBtn' class='btn btn-danger btn-sm' data-bs-toggle='modal'
-            data-bs-target='#deleteLocationModal'>Delete</button></td></tr></table></div></div>`
+            `<div class='card'><table><tr><td class='locationIcon alignCenter'><img src='./libs/images/location-icon.png'></td></tr></table><div class='card-body'><table><tr><td class='departmentName alignCenter'><b>${result.data[i].name}</b></td></tr></table><table class='mt-5'><tr><td class='alignCenter'><button type='button' id='editLocationBtn' class='btn btn-primary btn-sm'>Edit</button></td><td class='alignCenter'><button type='button' id='deleteLocationBtn' class='btn btn-danger btn-sm' data-bs-toggle='modal' data-bs-target='#deleteLocationModal' data-location-id="${result.data[i].id}">Delete</button></td></tr></table></div></div>`
           );
         }
       }
@@ -156,13 +151,12 @@ function deleteLocation() {
     success: function (result) {
       if (result.status.name == "ok") {
         console.log("Location successfully deleted");
-        $("#addLocationModal").modal("hide");
+        $("#deleteLocationModal").modal("hide");
         $(document).ready(function () {
           getAllLocations();
         });
-        $("#locationNameInput").val("");
-        $("#locationConfirmAddCheck").prop("checked", false);
-        $("#locationConfirmAddBtn").attr("disabled", true);
+        $("#locationConfirmDeleteCheck").prop("checked", false);
+        $("#locationConfirmDeleteBtn").attr("disabled", true);
       }
     },
 
@@ -398,8 +392,9 @@ $("#locationConfirmAddBtn").click(function () {
 });
 
 // Get location ID for deletion
-$("#deleteLocationBtn").click(function () {
-  updateDeleteLocationID();
+$("#deleteLocationModal").on("show.bs.modal", function (e) {
+  deleteLocationID = $(e.relatedTarget).data("location-id");
+  console.log(deleteLocationID);
 });
 
 // Run delete routines on delete button click
