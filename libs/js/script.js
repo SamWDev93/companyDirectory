@@ -111,6 +111,49 @@ function getAllLocations() {
 }
 
 // Insert functions
+function insertNewEmployee() {
+  $.ajax({
+    url: "libs/php/insertEmployee.php",
+    type: "POST",
+    dataType: "json",
+    data: {
+      firstName: $("#firstNameInput").val(),
+      lastName: $("#lastNameInput").val(),
+      jobTitle: $("#jobTitleInput").val(),
+      email: $("#emailInput").val(),
+      departmentID: $("#departmentSelect").val(),
+    },
+
+    success: function (result) {
+      if (result.status.name == "ok") {
+        console.log("Employee successfully added");
+        $("#addEmployeeModal").modal("hide");
+        $(document).ready(function () {
+          getAllEmployees();
+        });
+        $("#firstNameInput").val("");
+        $("#lastNameInput").val("");
+        $("#emailInput").val("");
+        $("#jobTitleInput").val("");
+        $("#departmentSelect").val("selectADepartment");
+        $("#addEmployeeLocationSelect").empty();
+        $("#addEmployeeLocationSelect").append(
+          $("<option>", {
+            value: "selectALocation",
+            text: "Select a Location",
+          })
+        );
+        $("#employeeConfirmAddCheck").prop("checked", false);
+        $("#employeeConfirmAddBtn").attr("disabled", true);
+      }
+    },
+
+    error: function (jqXHR, textStatus, errorThrown) {
+      console.log(errorThrown);
+    },
+  });
+}
+
 function insertNewDepartment() {
   $.ajax({
     url: "libs/php/insertDepartment.php",
@@ -118,7 +161,7 @@ function insertNewDepartment() {
     dataType: "json",
     data: {
       name: $("#departmentNameInput").val(),
-      locationID: $("#locationSelect").val(),
+      locationID: $("#addDepartmentLocationSelect").val(),
     },
 
     success: function (result) {
@@ -129,7 +172,7 @@ function insertNewDepartment() {
           getAllDepartments();
         });
         $("#departmentNameInput").val("");
-        $("#locationSelect").val("selectALocation");
+        $("#addDepartmentLocationSelect").val("selectALocation");
         $("#departmentConfirmAddCheck").prop("checked", false);
         $("#departmentConfirmAddBtn").attr("disabled", true);
       }
@@ -348,6 +391,64 @@ $.ajax({
   },
 });
 
+// Dynamically populate department select in add employee modal
+$.ajax({
+  url: "libs/php/getDepartmentLocationID.php",
+  type: "GET",
+  dataType: "json",
+  success: function (result) {
+    $.each(result.data, function (index) {
+      $("#departmentSelect").append(
+        $("<option>", {
+          value: result.data[index].locationID,
+          text: result.data[index].name,
+        })
+      );
+    });
+  },
+
+  error: function (jqXHR, textStatus, errorThrown) {
+    console.log(errorThrown);
+  },
+});
+
+// Dynamically populate location select in add employee modal on change of department select
+$("#departmentSelect").change(function () {
+  $.ajax({
+    url: "libs/php/getDepartmentLocations.php",
+    type: "POST",
+    data: {
+      id: $("#departmentSelect").val(),
+    },
+    dataType: "json",
+    success: function (result) {
+      if ($("#departmentSelect").val() == "selectADepartment") {
+        $("#addEmployeeLocationSelect").empty();
+        $("#addEmployeeLocationSelect").append(
+          $("<option>", {
+            value: "selectALocation",
+            text: "Select a Location",
+          })
+        );
+      } else {
+        $("#addEmployeeLocationSelect").empty();
+        $.each(result.data, function (index) {
+          $("#addEmployeeLocationSelect").append(
+            $("<option>", {
+              value: result.data[index].id,
+              text: result.data[index].name,
+            })
+          );
+        });
+      }
+    },
+
+    error: function (jqXHR, textStatus, errorThrown) {
+      console.log(errorThrown);
+    },
+  });
+});
+
 // Dynamically populate location select in add department modal
 $.ajax({
   url: "libs/php/getAllLocations.php",
@@ -355,7 +456,7 @@ $.ajax({
   dataType: "json",
   success: function (result) {
     $.each(result.data, function (index) {
-      $("#locationSelect").append(
+      $("#addDepartmentLocationSelect").append(
         $("<option>", {
           value: result.data[index].id,
           text: result.data[index].name,
@@ -466,6 +567,10 @@ $("#locationConfirmDeleteCheck").click(function () {
 });
 
 // Run insert routines on add button click
+$("#employeeConfirmAddBtn").click(function () {
+  insertNewEmployee();
+});
+
 $("#departmentConfirmAddBtn").click(function () {
   insertNewDepartment();
 });
