@@ -66,7 +66,8 @@ function getAllDepartments() {
 
         for (let i = 0; i < result.data.length; i++) {
           $(".records").append(
-            `<div class='card'><table><tr><td class='departmentIcon alignCenter'><img src='./libs/images/department-icon.png'></td></tr></table><div class='card-body'><table><tr><td class='departmentName alignCenter'><b>${result.data[i].name}</b></td></tr></table><table class='table table-striped mt-4'><tr><td class='alignLeft'><i class="fas fa-globe-europe"></i><b>Location: </b></td><td class='location alignRight'>${result.data[i].location}</td></tr></table><table class='mt-5'><tr><td class='alignCenter'><button type='button' id='editDepartmentBtn' class='btn btn-primary btn-sm'>Edit</button></td><td class='alignCenter'><button type='button' id='deleteDepartmentBtn' class='btn btn-danger btn-sm' data-bs-toggle='modal'
+            `<div class='card'><table><tr><td class='departmentIcon alignCenter'><img src='./libs/images/department-icon.png'></td></tr></table><div class='card-body'><table><tr><td class='departmentName alignCenter'><b>${result.data[i].name}</b></td></tr></table><table class='table table-striped mt-4'><tr><td class='alignLeft'><i class="fas fa-globe-europe"></i><b>Location: </b></td><td class='location alignRight'>${result.data[i].location}</td></tr></table><table class='mt-5'><tr><td class='alignCenter'><button type='button' id='updateDepartmentBtn' class='btn btn-primary btn-sm' data-bs-toggle='modal'
+            data-bs-target='#updateDepartmentModal' data-department-id='${result.data[i].id}'>Update</button></td><td class='alignCenter'><button type='button' id='deleteDepartmentBtn' class='btn btn-danger btn-sm' data-bs-toggle='modal'
             data-bs-target='#deleteDepartmentModal' data-department-id='${result.data[i].id}'>Delete</button></td></tr></table></div></div>`
           );
         }
@@ -538,6 +539,27 @@ $.ajax({
   success: function (result) {
     $.each(result.data, function (index) {
       $("#addDepartmentLocationSelect").append(
+        $("<option>", {
+          value: result.data[index].id,
+          text: result.data[index].name,
+        })
+      );
+    });
+  },
+
+  error: function (jqXHR, textStatus, errorThrown) {
+    console.log(errorThrown);
+  },
+});
+
+// Dynamically populate location select in update department modal
+$.ajax({
+  url: "libs/php/getAllLocations.php",
+  type: "GET",
+  dataType: "json",
+  success: function (result) {
+    $.each(result.data, function (index) {
+      $("#updateDepartmentLocationSelect").append(
         $("<option>", {
           value: result.data[index].id,
           text: result.data[index].name,
