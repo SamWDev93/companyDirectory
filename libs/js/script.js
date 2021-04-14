@@ -1,5 +1,6 @@
 //Global variables
 var totalRecords;
+var updateLocationID = "No Location ID";
 var deleteEmployeeID = "No Employee ID";
 var deleteDepartmentID = "No Department ID";
 var deleteLocationID = "No Location ID";
@@ -111,6 +112,29 @@ function getAllLocations() {
   });
 }
 
+function getLocationByID() {
+  $.ajax({
+    url: "libs/php/getLocationByID.php",
+    type: "POST",
+    data: {
+      id: updateLocationID,
+    },
+    dataType: "json",
+
+    success: function (result) {
+      if (result.status.name == "ok") {
+        console.log(result);
+
+        $("#updateLocationNameInput").val(result["data"][0]["name"]);
+      }
+    },
+
+    error: function (jqXHR, textStatus, errorThrown) {
+      console.log(errorThrown);
+    },
+  });
+}
+
 // Insert functions
 function insertNewEmployee() {
   $.ajax({
@@ -204,6 +228,35 @@ function insertNewLocation() {
         $("#locationNameInput").val("");
         $("#locationConfirmAddCheck").prop("checked", false);
         $("#locationConfirmAddBtn").attr("disabled", true);
+      }
+    },
+
+    error: function (jqXHR, textStatus, errorThrown) {
+      console.log(errorThrown);
+    },
+  });
+}
+
+// Update functions
+function updateLocation() {
+  $.ajax({
+    url: "libs/php/updateLocation.php",
+    type: "POST",
+    dataType: "json",
+    data: {
+      name: $("#updateLocationNameInput").val(),
+      id: updateLocationID,
+    },
+
+    success: function (result) {
+      if (result.status.name == "ok") {
+        console.log("Location successfully updated");
+        $("#updateLocationModal").modal("hide");
+        $(document).ready(function () {
+          getAllLocations();
+        });
+        $("#locationConfirmUpdateCheck").prop("checked", false);
+        $("#locationConfirmUpdateBtn").attr("disabled", true);
       }
     },
 
@@ -569,6 +622,15 @@ $("#locationConfirmAddCheck").click(function () {
   }
 });
 
+// Enable update buttons on change of confirmation checkbox
+$("#locationConfirmUpdateCheck").click(function () {
+  if ($(this).is(":checked")) {
+    $("#locationConfirmUpdateBtn").attr("disabled", false);
+  } else {
+    $("#locationConfirmUpdateBtn").attr("disabled", true);
+  }
+});
+
 // Enable delete buttons on change of confirmation checkbox
 $("#employeeConfirmDeleteCheck").click(function () {
   if ($(this).is(":checked")) {
@@ -605,6 +667,18 @@ $("#departmentConfirmAddBtn").click(function () {
 
 $("#locationConfirmAddBtn").click(function () {
   insertNewLocation();
+});
+
+// Run update routines on update button click
+$("#locationConfirmUpdateBtn").click(function () {
+  updateLocation();
+});
+
+// Get input data for update location modal
+$("#updateLocationModal").on("show.bs.modal", function (e) {
+  updateLocationID = $(e.relatedTarget).data("location-id");
+  console.log(updateLocationID);
+  getLocationByID();
 });
 
 // Get employee ID for deletion
