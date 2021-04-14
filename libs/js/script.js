@@ -1,5 +1,6 @@
 //Global variables
 var totalRecords;
+var updateDepartmentID = "No Department ID";
 var updateLocationID = "No Location ID";
 var deleteEmployeeID = "No Employee ID";
 var deleteDepartmentID = "No Department ID";
@@ -104,6 +105,29 @@ function getAllLocations() {
             `<div class='card'><table><tr><td class='locationIcon alignCenter'><img src='./libs/images/location-icon.png'></td></tr></table><div class='card-body'><table><tr><td class='departmentName alignCenter'><b>${result.data[i].name}</b></td></tr></table><table class='mt-5'><tr><td class='alignCenter'><button type='button' id='editLocationBtn' class='btn btn-primary btn-sm' data-bs-toggle='modal' data-bs-target='#updateLocationModal' data-location-id='${result.data[i].id}'>Update</button></td><td class='alignCenter'><button type='button' id='deleteLocationBtn' class='btn btn-danger btn-sm' data-bs-toggle='modal' data-bs-target='#deleteLocationModal' data-location-id='${result.data[i].id}'>Delete</button></td></tr></table></div></div>`
           );
         }
+      }
+    },
+
+    error: function (jqXHR, textStatus, errorThrown) {
+      console.log(errorThrown);
+    },
+  });
+}
+
+function getDepartmentByID() {
+  $.ajax({
+    url: "libs/php/getDepartmentByID.php",
+    type: "POST",
+    data: {
+      id: updateDepartmentID,
+    },
+    dataType: "json",
+
+    success: function (result) {
+      if (result.status.name == "ok") {
+        console.log(result);
+
+        $("#updateDepartmentNameInput").val(result["data"][0]["name"]);
       }
     },
 
@@ -239,6 +263,35 @@ function insertNewLocation() {
 }
 
 // Update functions
+function updateDepartment() {
+  $.ajax({
+    url: "libs/php/updateDepartment.php",
+    type: "POST",
+    dataType: "json",
+    data: {
+      name: $("#updateDepartmentNameInput").val(),
+      locationID: $("#updateDepartmentLocationSelect").val(),
+      id: updateDepartmentID,
+    },
+
+    success: function (result) {
+      if (result.status.name == "ok") {
+        console.log("Department successfully updated");
+        $("#updateDepartmentModal").modal("hide");
+        $(document).ready(function () {
+          getAllDepartments();
+        });
+        $("#departmentConfirmUpdateCheck").prop("checked", false);
+        $("#departmentConfirmUpdateBtn").attr("disabled", true);
+      }
+    },
+
+    error: function (jqXHR, textStatus, errorThrown) {
+      console.log(errorThrown);
+    },
+  });
+}
+
 function updateLocation() {
   $.ajax({
     url: "libs/php/updateLocation.php",
@@ -645,6 +698,14 @@ $("#locationConfirmAddCheck").click(function () {
 });
 
 // Enable update buttons on change of confirmation checkbox
+$("#departmentConfirmUpdateCheck").click(function () {
+  if ($(this).is(":checked")) {
+    $("#departmentConfirmUpdateBtn").attr("disabled", false);
+  } else {
+    $("#departmentConfirmUpdateBtn").attr("disabled", true);
+  }
+});
+
 $("#locationConfirmUpdateCheck").click(function () {
   if ($(this).is(":checked")) {
     $("#locationConfirmUpdateBtn").attr("disabled", false);
@@ -692,8 +753,19 @@ $("#locationConfirmAddBtn").click(function () {
 });
 
 // Run update routines on update button click
+$("#departmentConfirmUpdateBtn").click(function () {
+  updateDepartment();
+});
+
 $("#locationConfirmUpdateBtn").click(function () {
   updateLocation();
+});
+
+// Get input data for update department modal
+$("#updateDepartmentModal").on("show.bs.modal", function (e) {
+  updateDepartmentID = $(e.relatedTarget).data("department-id");
+  console.log(updateDepartmentID);
+  getDepartmentByID();
 });
 
 // Get input data for update location modal
