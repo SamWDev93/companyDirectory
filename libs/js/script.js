@@ -1,5 +1,6 @@
 //Global variables
 var totalRecords;
+var updateEmployeeID = "No Employee ID";
 var updateDepartmentID = "No Department ID";
 var updateLocationID = "No Location ID";
 var deleteEmployeeID = "No Employee ID";
@@ -106,6 +107,32 @@ function getAllLocations() {
             `<div class='card'><table><tr><td class='locationIcon alignCenter'><img src='./libs/images/location-icon.png'></td></tr></table><div class='card-body'><table><tr><td class='departmentName alignCenter'><b>${result.data[i].name}</b></td></tr></table><table class='mt-5'><tr><td class='alignCenter'><button type='button' id='editLocationBtn' class='btn btn-primary btn-sm' data-bs-toggle='modal' data-bs-target='#updateLocationModal' data-location-id='${result.data[i].id}'>Edit</button></td><td class='alignCenter'><button type='button' id='deleteLocationBtn' class='btn btn-danger btn-sm' data-bs-toggle='modal' data-bs-target='#deleteLocationModal' data-location-id='${result.data[i].id}'>Delete</button></td></tr></table></div></div>`
           );
         }
+      }
+    },
+
+    error: function (jqXHR, textStatus, errorThrown) {
+      console.log(errorThrown);
+    },
+  });
+}
+
+function getEmployeeByID() {
+  $.ajax({
+    url: "libs/php/getEmployeeByID.php",
+    type: "POST",
+    data: {
+      id: updateEmployeeID,
+    },
+    dataType: "json",
+
+    success: function (result) {
+      if (result.status.name == "ok") {
+        console.log(result);
+
+        $("#updateFirstNameInput").val(result["data"][0]["firstName"]);
+        $("#updateLastNameInput").val(result["data"][0]["lastName"]);
+        $("#updateEmailInput").val(result["data"][0]["email"]);
+        $("#updateJobTitleInput").val(result["data"][0]["jobTitle"]);
       }
     },
 
@@ -264,6 +291,38 @@ function insertNewLocation() {
 }
 
 // Update functions
+function updateEmployee() {
+  $.ajax({
+    url: "libs/php/updateEmployee.php",
+    type: "POST",
+    dataType: "json",
+    data: {
+      firstName: $("#updateFirstNameInput").val(),
+      lastName: $("#updateLastNameInput").val(),
+      email: $("#updateEmailInput").val(),
+      jobTitle: $("#updateJobTitleInput").val(),
+      departmentID: $("#updateDepartmentSelect").val(),
+      id: updateEmployeeID,
+    },
+
+    success: function (result) {
+      if (result.status.name == "ok") {
+        console.log("Employee successfully updated");
+        $("#updateEmployeeModal").modal("hide");
+        $(document).ready(function () {
+          getAllEmployees();
+        });
+        $("#employeeConfirmUpdateCheck").prop("checked", false);
+        $("#employeeConfirmUpdateBtn").attr("disabled", true);
+      }
+    },
+
+    error: function (jqXHR, textStatus, errorThrown) {
+      console.log(errorThrown);
+    },
+  });
+}
+
 function updateDepartment() {
   $.ajax({
     url: "libs/php/updateDepartment.php",
@@ -548,6 +607,27 @@ $.ajax({
   },
 });
 
+// Dynamically populate department select in update employee modal
+$.ajax({
+  url: "libs/php/getDepartmentLocationID.php",
+  type: "GET",
+  dataType: "json",
+  success: function (result) {
+    $.each(result.data, function (index) {
+      $("#updateDepartmentSelect").append(
+        $("<option>", {
+          value: result.data[index].locationID,
+          text: result.data[index].name,
+        })
+      );
+    });
+  },
+
+  error: function (jqXHR, textStatus, errorThrown) {
+    console.log(errorThrown);
+  },
+});
+
 // Dynamically populate location select in add employee modal on change of department select
 $("#departmentSelect").change(function () {
   $.ajax({
@@ -573,6 +653,44 @@ $("#departmentSelect").change(function () {
             $("<option>", {
               value: result.data[index].id,
               text: result.data[index].name,
+            })
+          );
+        });
+      }
+    },
+
+    error: function (jqXHR, textStatus, errorThrown) {
+      console.log(errorThrown);
+    },
+  });
+});
+
+// Dynamically populate location select in update employee modal on change of department select
+$("#updateDepartmentSelect").change(function () {
+  $.ajax({
+    url: "libs/php/getDepartmentLocations.php",
+    type: "POST",
+    data: {
+      id: $("#updateDepartmentSelect").val(),
+    },
+    dataType: "json",
+    success: function (result) {
+      if ($("#updateDepartmentSelect").val() == "selectADepartment") {
+        $("#updateEmployeeLocationSelect").empty();
+        $("#updateEmployeeLocationSelect").append(
+          $("<option>", {
+            value: "selectALocation",
+            text: "Select a Location",
+          })
+        );
+      } else {
+        $("#updateEmployeeLocationSelect").empty();
+        $.each(result.data, function (index) {
+          $("#updateEmployeeLocationSelect").append(
+            $("<option>", {
+              value: result.data[index].id,
+              text: result.data[index].name,
+              "data-test": "test",
             })
           );
         });
@@ -699,6 +817,14 @@ $("#locationConfirmAddCheck").click(function () {
 });
 
 // Enable update buttons on change of confirmation checkbox
+$("#employeeConfirmUpdateCheck").click(function () {
+  if ($(this).is(":checked")) {
+    $("#employeeConfirmUpdateBtn").attr("disabled", false);
+  } else {
+    $("#employeeConfirmUpdateBtn").attr("disabled", true);
+  }
+});
+
 $("#departmentConfirmUpdateCheck").click(function () {
   if ($(this).is(":checked")) {
     $("#departmentConfirmUpdateBtn").attr("disabled", false);
@@ -754,12 +880,23 @@ $("#locationConfirmAddBtn").click(function () {
 });
 
 // Run update routines on update button click
+$("#employeeConfirmUpdateBtn").click(function () {
+  updateEmployee();
+});
+
 $("#departmentConfirmUpdateBtn").click(function () {
   updateDepartment();
 });
 
 $("#locationConfirmUpdateBtn").click(function () {
   updateLocation();
+});
+
+// Get input data for update department modal
+$("#updateEmployeeModal").on("show.bs.modal", function (e) {
+  updateEmployeeID = $(e.relatedTarget).data("employee-id");
+  console.log(updateEmployeeID);
+  getEmployeeByID();
 });
 
 // Get input data for update department modal
