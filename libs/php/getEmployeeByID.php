@@ -1,7 +1,7 @@
 <?php
 
 	// example use from browser
-	// http://localhost/companyDirectory/libs/php/getAll.php
+	// http://localhost/companyDirectory/libs/php/getEmployeeByID.php?id=1
 
 	// remove next two lines for production
 	
@@ -32,7 +32,7 @@
 
 	}	
 
-	$query = 'SELECT p.id, p.lastName, p.firstName, p.jobTitle, p.email, d.name as department, l.name as location FROM personnel p LEFT JOIN department d ON (d.id = p.departmentID) LEFT JOIN location l ON (l.id = d.locationID) ORDER BY p.lastName, p.firstName, d.name, l.name';
+	$query = 'SELECT p.id, p.lastName, p.firstName, p.jobTitle, p.email, d.name as department, l.name as location FROM personnel p LEFT JOIN department d ON (d.id = p.departmentID) LEFT JOIN location l ON (l.id = d.locationID) WHERE p.id = ' . $_REQUEST['id'];
 
 	$result = $conn->query($query);
 	
