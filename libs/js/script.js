@@ -199,7 +199,9 @@ function insertNewEmployee() {
       lastName: $("#lastNameInput").val(),
       jobTitle: $("#jobTitleInput").val(),
       email: $("#emailInput").val(),
-      departmentID: $("#departmentSelect").val(),
+      departmentID: $("#departmentSelect")
+        .find(":selected")
+        .data("department-id"),
     },
 
     success: function (result) {
@@ -301,7 +303,9 @@ function updateEmployee() {
       lastName: $("#updateLastNameInput").val(),
       email: $("#updateEmailInput").val(),
       jobTitle: $("#updateJobTitleInput").val(),
-      departmentID: $("#updateDepartmentSelect").val(),
+      departmentID: $("#updateDepartmentSelect")
+        .find(":selected")
+        .data("department-id"),
       id: updateEmployeeID,
     },
 
@@ -597,6 +601,7 @@ $.ajax({
         $("<option>", {
           value: result.data[index].locationID,
           text: result.data[index].name,
+          "data-department-id": result.data[index].id,
         })
       );
     });
@@ -618,6 +623,7 @@ $.ajax({
         $("<option>", {
           value: result.data[index].locationID,
           text: result.data[index].name,
+          "data-department-id": result.data[index].id,
         })
       );
     });
