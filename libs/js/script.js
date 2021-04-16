@@ -843,9 +843,13 @@ $.ajax({
   },
 });
 
-// Show corresponding buttons for search select value
+// Show corresponding buttons / filter options for search select value
 $("#searchFor").change(function () {
   if ($("#searchFor").val() == "employees") {
+    $("#filterByTitle").show();
+    $("#filterByDepartment").show();
+    $("#filterByLocation").show();
+    $(".lineBreak").show();
     $("#addEmployeeBtn").show();
     $("#addDepartmentBtn").hide();
     $("#addLocationBtn").hide();
@@ -853,6 +857,10 @@ $("#searchFor").change(function () {
   }
 
   if ($("#searchFor").val() == "departments") {
+    $("#filterByTitle").hide();
+    $("#filterByDepartment").hide();
+    $("#filterByLocation").hide();
+    $(".lineBreak").hide();
     $("#addEmployeeBtn").hide();
     $("#addDepartmentBtn").show();
     $("#addLocationBtn").hide();
@@ -860,6 +868,10 @@ $("#searchFor").change(function () {
   }
 
   if ($("#searchFor").val() == "locations") {
+    $("#filterByTitle").hide();
+    $("#filterByDepartment").hide();
+    $("#filterByLocation").hide();
+    $(".lineBreak").hide();
     $("#addEmployeeBtn").hide();
     $("#addDepartmentBtn").hide();
     $("#addLocationBtn").show();
