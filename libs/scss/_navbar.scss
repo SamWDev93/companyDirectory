@@ -1,7 +1,32 @@
+@import "./breakpoints";
+
 .navbar {
   height: 10vh;
   box-shadow: 5px 5px 3px #888;
   z-index: 98;
-  padding-left: 3rem;
-  padding-right: 3rem;
+  color: #fff;
+
+  @include xs {
+    padding: 0;
+    display: flex;
+    justify-content: center;
+
+    h1 {
+      font-size: 1.5rem;
+    }
+  }
+
+  @include md {
+    h1 {
+      font-size: 1.75rem;
+    }
+  }
+
+  @include xl {
+    justify-content: start;
+    padding-left: 2rem;
+    h1 {
+      font-size: 2rem;
+    }
+  }
 }
