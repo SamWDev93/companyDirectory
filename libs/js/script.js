@@ -587,6 +587,52 @@ function validateAddLocationForm() {
   }
 }
 
+// Validate update form functions
+function validateUpdateEmployeeForm() {
+  if (
+    $("#updateFirstNameInput").val() == "" ||
+    $("#updateFirstNameInput").val() == " " ||
+    $("#updateLastNameInput").val() == "" ||
+    $("#updateLastNameInput").val() == " " ||
+    $("#updateEmailInput").val() == "" ||
+    $("#updateEmailInput").val() == " " ||
+    $("#updateJobTitleInput").val() == "" ||
+    $("#updateJobTitleInput").val() == " " ||
+    $("#updateDepartmentSelect").val() == "selectADepartment" ||
+    $("#updateEmployeeLocationSelect").val() == "selectALocation"
+  ) {
+    alert("Please ensure all fields are correctly filled out.");
+    return false;
+  } else {
+    return true;
+  }
+}
+
+function validateUpdateDepartmentForm() {
+  if (
+    $("#updateDepartmentNameInput").val() == "" ||
+    $("#updateDepartmentNameInput").val() == " " ||
+    $("#updateDepartmentLocationSelect").val() == "selectALocation"
+  ) {
+    alert("Please ensure all fields are correctly filled out.");
+    return false;
+  } else {
+    return true;
+  }
+}
+
+function validateUpdateLocationForm() {
+  if (
+    $("#updateLocationNameInput").val() == "" ||
+    $("#updateLocationNameInput").val() == " "
+  ) {
+    alert("Please ensure all fields are correctly filled out.");
+    return false;
+  } else {
+    return true;
+  }
+}
+
 // Retrieve all records on load
 $(document).ready(() => {
   $("#addDepartmentBtn").hide();
@@ -882,26 +928,38 @@ $("#locationConfirmAddCheck").click(function () {
 
 // Enable update buttons on change of confirmation checkbox
 $("#employeeConfirmUpdateCheck").click(function () {
-  if ($(this).is(":checked")) {
-    $("#employeeConfirmUpdateBtn").attr("disabled", false);
+  if (validateUpdateEmployeeForm()) {
+    if ($(this).is(":checked")) {
+      $("#employeeConfirmUpdateBtn").attr("disabled", false);
+    } else {
+      $("#employeeConfirmUpdateBtn").attr("disabled", true);
+    }
   } else {
-    $("#employeeConfirmUpdateBtn").attr("disabled", true);
+    $("#employeeConfirmUpdateCheck").prop("checked", false);
   }
 });
 
 $("#departmentConfirmUpdateCheck").click(function () {
-  if ($(this).is(":checked")) {
-    $("#departmentConfirmUpdateBtn").attr("disabled", false);
+  if (validateUpdateDepartmentForm()) {
+    if ($(this).is(":checked")) {
+      $("#departmentConfirmUpdateBtn").attr("disabled", false);
+    } else {
+      $("#departmentConfirmUpdateBtn").attr("disabled", true);
+    }
   } else {
-    $("#departmentConfirmUpdateBtn").attr("disabled", true);
+    $("#departmentConfirmUpdateCheck").prop("checked", false);
   }
 });
 
 $("#locationConfirmUpdateCheck").click(function () {
-  if ($(this).is(":checked")) {
-    $("#locationConfirmUpdateBtn").attr("disabled", false);
+  if (validateUpdateLocationForm()) {
+    if ($(this).is(":checked")) {
+      $("#locationConfirmUpdateBtn").attr("disabled", false);
+    } else {
+      $("#locationConfirmUpdateBtn").attr("disabled", true);
+    }
   } else {
-    $("#locationConfirmUpdateBtn").attr("disabled", true);
+    $("#locationConfirmUpdateCheck").prop("checked", false);
   }
 });
 
