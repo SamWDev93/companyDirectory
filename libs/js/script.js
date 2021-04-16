@@ -541,6 +541,52 @@ function employeeFilterByLocation() {
   });
 }
 
+// Validate add form functions
+function validateAddEmployeeForm() {
+  if (
+    $("#firstNameInput").val() == "" ||
+    $("#firstNameInput").val() == " " ||
+    $("#lastNameInput").val() == "" ||
+    $("#lastNameInput").val() == " " ||
+    $("#emailInput").val() == "" ||
+    $("#emailInput").val() == " " ||
+    $("#jobTitleInput").val() == "" ||
+    $("#jobTitleInput").val() == " " ||
+    $("#departmentSelect").val() == "selectADepartment" ||
+    $("#addEmployeeLocationSelect").val() == "selectALocation"
+  ) {
+    alert("Please ensure all fields are correctly filled out.");
+    return false;
+  } else {
+    return true;
+  }
+}
+
+function validateAddDepartmentForm() {
+  if (
+    $("#departmentNameInput").val() == "" ||
+    $("#departmentNameInput").val() == " " ||
+    $("#addDepartmentLocationSelect").val() == "selectALocation"
+  ) {
+    alert("Please ensure all fields are correctly filled out.");
+    return false;
+  } else {
+    return true;
+  }
+}
+
+function validateAddLocationForm() {
+  if (
+    $("#locationNameInput").val() == "" ||
+    $("#locationNameInput").val() == " "
+  ) {
+    alert("Please ensure all fields are correctly filled out.");
+    return false;
+  } else {
+    return true;
+  }
+}
+
 // Retrieve all records on load
 $(document).ready(() => {
   $("#addDepartmentBtn").hide();
@@ -799,26 +845,38 @@ $("#filterByLocation").change(function () {
 
 // Enable add buttons on change of confirmation checkbox
 $("#employeeConfirmAddCheck").click(function () {
-  if ($(this).is(":checked")) {
-    $("#employeeConfirmAddBtn").attr("disabled", false);
+  if (validateAddEmployeeForm()) {
+    if ($(this).is(":checked")) {
+      $("#employeeConfirmAddBtn").attr("disabled", false);
+    } else {
+      $("#employeeConfirmAddBtn").attr("disabled", true);
+    }
   } else {
-    $("#employeeConfirmAddBtn").attr("disabled", true);
+    $("#employeeConfirmAddCheck").prop("checked", false);
   }
 });
 
 $("#departmentConfirmAddCheck").click(function () {
-  if ($(this).is(":checked")) {
-    $("#departmentConfirmAddBtn").attr("disabled", false);
+  if (validateAddDepartmentForm()) {
+    if ($(this).is(":checked")) {
+      $("#departmentConfirmAddBtn").attr("disabled", false);
+    } else {
+      $("#departmentConfirmAddBtn").attr("disabled", true);
+    }
   } else {
-    $("#departmentConfirmAddBtn").attr("disabled", true);
+    $("#departmentConfirmAddCheck").prop("checked", false);
   }
 });
 
 $("#locationConfirmAddCheck").click(function () {
-  if ($(this).is(":checked")) {
-    $("#locationConfirmAddBtn").attr("disabled", false);
+  if (validateAddLocationForm()) {
+    if ($(this).is(":checked")) {
+      $("#locationConfirmAddBtn").attr("disabled", false);
+    } else {
+      $("#locationConfirmAddBtn").attr("disabled", true);
+    }
   } else {
-    $("#locationConfirmAddBtn").attr("disabled", true);
+    $("#locationConfirmAddCheck").prop("checked", false);
   }
 });
 
