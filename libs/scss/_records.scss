@@ -1,14 +1,42 @@
 .records {
-  height: 90vh;
-  width: 83vw;
   flex-wrap: wrap;
   overflow-y: scroll;
 
+  @include xs {
+    height: 80vh;
+    width: 100vw;
+  }
+
+  @include md {
+    height: 87vh;
+  }
+
+  @include xl {
+    height: 90vh;
+    width: 83vw;
+  }
+
   .totalRecords {
-    margin-top: 2.5rem;
-    margin-left: 1.3rem;
     padding: 0;
     text-align: center;
+
+    @include xs {
+      margin-top: 1.5rem;
+      margin-left: 0.5rem;
+      margin-right: 0.5rem;
+      h5 {
+        font-size: 1.1rem;
+      }
+    }
+
+    @include xl {
+      margin-top: 2.5rem;
+      margin-left: 1.3rem;
+      margin-right: 0rem;
+      h5 {
+        font-size: 1.25rem;
+      }
+    }
   }
 
   .card {
@@ -16,9 +44,9 @@
     margin: 1rem;
     box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.7);
 
-    // #locationIDTable {
-    //   display: none;
-    // }
+    .userIcon {
+      width: 60%;
+    }
 
     table,
     tr {
@@ -52,6 +80,14 @@
 
     .btn {
       width: 5rem;
+      margin-top: 0.75rem;
     }
+  }
+
+  .card-body {
+    padding-top: 0;
+    padding-bottom: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 }

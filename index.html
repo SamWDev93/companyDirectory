@@ -34,6 +34,74 @@
       <h1>Company Directory</h1>
     </nav>
 
+    <!-- Mobile Search / Filter Bar -->
+    <div class="container-fluid bg-primary mobileFilter">
+      <div
+        class="centerItems"
+      >
+        <select name="searchFor" id="searchFor">
+          <option value="employees" selected="selected">Employees</option>
+          <option value="departments">Departments</option>
+          <option value="locations">Locations</option>
+        </select>
+      </div>
+
+        <!-- Add Buttons -->
+        <div class="centerItems">
+          <button
+            type="button"
+            id="addEmployeeBtn"
+            class="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#addEmployeeModal"
+          >
+            <i class="fas fa-plus"></i>
+          </button>
+          <button
+            type="button"
+            id="addDepartmentBtn"
+            class="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#addDepartmentModal"
+          >
+          <i class="fas fa-plus"></i>
+          </button>
+          <button
+            type="button"
+            id="addLocationBtn"
+            class="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#addLocationModal"
+          >
+          <i class="fas fa-plus"></i>
+          </button>
+
+        <!-- Filter Mobile Button -->
+          <button
+            type="button"
+            id="mobileFilterBtn"
+            class="btn btn-primary"
+          >
+          <i class="fas fa-filter"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Filter Dropdown -->
+    <div class="container-fluid bg-primary mobileFilterDropdown">
+      <div>
+        <select name="filterByDepartment" id="filterByDepartment">
+          <option value="allDepartments">All Departments</option>
+        </select>
+      </div>
+      <div>
+        <select name="filterByLocation" id="filterByLocation">
+          <option value="allLocations">All Locations</option>
+        </select>
+      </div>
+    </div>
+
     <div class="d-flex">
       <!-- Search / Filter Section -->
       <div class="filter bg-light">
