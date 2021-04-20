@@ -11,7 +11,7 @@ var deleteLocationID = "No Location ID";
 function getAllEmployees() {
   $.ajax({
     url: "libs/php/getAll.php",
-    type: "GET",
+    type: "POST",
     dataType: "json",
 
     success: function (result) {
@@ -50,7 +50,7 @@ function getAllEmployees() {
 function getAllDepartments() {
   $.ajax({
     url: "libs/php/getAllDepartments.php",
-    type: "GET",
+    type: "POST",
     dataType: "json",
 
     success: function (result) {
@@ -86,7 +86,7 @@ function getAllDepartments() {
 function getAllLocations() {
   $.ajax({
     url: "libs/php/getAllLocations.php",
-    type: "GET",
+    type: "POST",
     dataType: "json",
 
     success: function (result) {
@@ -470,7 +470,7 @@ function deleteLocation() {
 function employeeFilterByDepartment() {
   $.ajax({
     url: "libs/php/employeeFilterByDepartment.php",
-    type: "GET",
+    type: "POST",
     dataType: "json",
     data: {
       id: $("#filterByDepartment").val(),
@@ -504,13 +504,87 @@ function employeeFilterByDepartment() {
   });
 }
 
+function employeeMobileFilterByDepartment() {
+  $.ajax({
+    url: "libs/php/employeeFilterByDepartment.php",
+    type: "POST",
+    dataType: "json",
+    data: {
+      id: $("#mobileFilterByDepartment").val(),
+    },
+
+    success: function (result) {
+      if (result.status.name == "ok") {
+        console.log(result);
+        totalRecords = 0;
+
+        $(".records").empty();
+        for (let i = 0; i < result.data.length; i++) {
+          totalRecords++;
+        }
+
+        $(".records").append(
+          `<div class='totalRecords container-fluid'><h5>Displaying ${totalRecords} Employee Records:</h5></div>`
+        );
+
+        for (let i = 0; i < result.data.length; i++) {
+          $(".records").append(
+            `<div class='card'><table><tr><td class='alignCenter'><img src='./libs/images/user-icon.png' class='userIcon'></td></tr></table><div class='card-body'><table><tr><td class='fullName alignCenter'><b>${result.data[i].firstName} ${result.data[i].lastName}</b><a href='mailto:${result.data[i].email}'><i class="fas fa-envelope-open-text"></i></a></td></tr></table><table class='table table-striped mt-3'><tr><td class='alignLeft'><i class="fas fa-network-wired"></i><b>Department: </b></td><td class='department alignRight'>${result.data[i].department}</td></tr><tr><td class='alignLeft'><i class="fas fa-search-location"></i><b>Location:</b></td><td class='location alignRight'>${result.data[i].location}</td></tr></table><table><tr><td class='alignCenter'><button type='button' class='btn btn-primary btn-sm'>Edit</button></td><td class='alignCenter'><button type='button' class='btn btn-danger btn-sm'>Delete</button></td></tr></table></div></div>`
+          );
+        }
+      }
+    },
+
+    error: function (jqXHR, textStatus, errorThrown) {
+      console.log(errorThrown);
+    },
+  });
+}
+
 function employeeFilterByLocation() {
   $.ajax({
     url: "libs/php/employeeFilterByLocation.php",
-    type: "GET",
+    type: "POST",
     dataType: "json",
     data: {
       id: $("#filterByLocation").val(),
+    },
+
+    success: function (result) {
+      if (result.status.name == "ok") {
+        console.log(result);
+        totalRecords = 0;
+
+        $(".records").empty();
+        for (let i = 0; i < result.data.length; i++) {
+          totalRecords++;
+        }
+
+        $(".records").append(
+          `<div class='totalRecords container-fluid'><h5>Displaying ${totalRecords} Employee Records:</h5></div>`
+        );
+
+        for (let i = 0; i < result.data.length; i++) {
+          $(".records").append(
+            `<div class='card'><table><tr><td class='alignCenter'><img src='./libs/images/user-icon.png' class='userIcon'></td></tr></table><div class='card-body'><table><tr><td class='fullName alignCenter'><b>${result.data[i].firstName} ${result.data[i].lastName}</b><a href='mailto:${result.data[i].email}'><i class="fas fa-envelope-open-text"></i></a></td></tr></table><table class='table table-striped mt-3'><tr><td class='alignLeft'><i class="fas fa-network-wired"></i><b>Department: </b></td><td class='department alignRight'>${result.data[i].department}</td></tr><tr><td class='alignLeft'><i class="fas fa-search-location"></i><b>Location:</b></td><td class='location alignRight'>${result.data[i].location}</td></tr></table><table><tr><td class='alignCenter'><button type='button' class='btn btn-primary btn-sm'>Edit</button></td><td class='alignCenter'><button type='button' class='btn btn-danger btn-sm'>Delete</button></td></tr></table></div></div>`
+          );
+        }
+      }
+    },
+
+    error: function (jqXHR, textStatus, errorThrown) {
+      console.log(errorThrown);
+    },
+  });
+}
+
+function employeeMobileFilterByLocation() {
+  $.ajax({
+    url: "libs/php/employeeFilterByLocation.php",
+    type: "POST",
+    dataType: "json",
+    data: {
+      id: $("#mobileFilterByLocation").val(),
     },
 
     success: function (result) {
@@ -640,10 +714,10 @@ $(document).ready(() => {
   getAllEmployees();
 });
 
-// Dynamically populate department select filter
+// Dynamically populate department select filter - desktop
 $.ajax({
   url: "libs/php/getAllDepartments.php",
-  type: "GET",
+  type: "POST",
   dataType: "json",
   success: function (result) {
     $.each(result.data, function (index) {
@@ -661,10 +735,31 @@ $.ajax({
   },
 });
 
-// Dynamically populate location select filter
+// Dynamically populate department select filter - mobile
+$.ajax({
+  url: "libs/php/getAllDepartments.php",
+  type: "POST",
+  dataType: "json",
+  success: function (result) {
+    $.each(result.data, function (index) {
+      $("#mobileFilterByDepartment").append(
+        $("<option>", {
+          value: result.data[index].id,
+          text: result.data[index].name,
+        })
+      );
+    });
+  },
+
+  error: function (jqXHR, textStatus, errorThrown) {
+    console.log(errorThrown);
+  },
+});
+
+// Dynamically populate location select filter - desktop
 $.ajax({
   url: "libs/php/getAllLocations.php",
-  type: "GET",
+  type: "POST",
   dataType: "json",
   success: function (result) {
     $.each(result.data, function (index) {
@@ -682,10 +777,31 @@ $.ajax({
   },
 });
 
+// Dynamically populate location select filter - mobile
+$.ajax({
+  url: "libs/php/getAllLocations.php",
+  type: "POST",
+  dataType: "json",
+  success: function (result) {
+    $.each(result.data, function (index) {
+      $("#mobileFilterByLocation").append(
+        $("<option>", {
+          value: result.data[index].id,
+          text: result.data[index].name,
+        })
+      );
+    });
+  },
+
+  error: function (jqXHR, textStatus, errorThrown) {
+    console.log(errorThrown);
+  },
+});
+
 // Dynamically populate department select in add employee modal
 $.ajax({
   url: "libs/php/getDepartmentLocationID.php",
-  type: "GET",
+  type: "POST",
   dataType: "json",
   success: function (result) {
     $.each(result.data, function (index) {
@@ -707,7 +823,7 @@ $.ajax({
 // Dynamically populate department select in update employee modal
 $.ajax({
   url: "libs/php/getDepartmentLocationID.php",
-  type: "GET",
+  type: "POST",
   dataType: "json",
   success: function (result) {
     $.each(result.data, function (index) {
@@ -804,7 +920,7 @@ $("#updateDepartmentSelect").change(function () {
 // Dynamically populate location select in add department modal
 $.ajax({
   url: "libs/php/getAllLocations.php",
-  type: "GET",
+  type: "POST",
   dataType: "json",
   success: function (result) {
     $.each(result.data, function (index) {
@@ -825,7 +941,7 @@ $.ajax({
 // Dynamically populate location select in update department modal
 $.ajax({
   url: "libs/php/getAllLocations.php",
-  type: "GET",
+  type: "POST",
   dataType: "json",
   success: function (result) {
     $.each(result.data, function (index) {
@@ -843,11 +959,10 @@ $.ajax({
   },
 });
 
-// Show corresponding buttons / filter options for search select value
+// Show corresponding buttons / filter options for search select value - desktop
 $("#searchFor").change(function () {
   if ($("#searchFor").val() == "employees") {
     $("#filterByTitle").show();
-    $("#mobileFilterBtn").show();
     $("#filterByDepartment").show();
     $("#filterByLocation").show();
     $(".lineBreak").show();
@@ -858,7 +973,6 @@ $("#searchFor").change(function () {
   }
 
   if ($("#searchFor").val() == "departments") {
-    $("#mobileFilterBtn").hide();
     $("#filterByTitle").hide();
     $("#filterByDepartment").hide();
     $("#filterByLocation").hide();
@@ -870,7 +984,6 @@ $("#searchFor").change(function () {
   }
 
   if ($("#searchFor").val() == "locations") {
-    $("#mobileFilterBtn").hide();
     $("#filterByTitle").hide();
     $("#filterByDepartment").hide();
     $("#filterByLocation").hide();
@@ -882,7 +995,40 @@ $("#searchFor").change(function () {
   }
 });
 
-// Disable location select on department select change
+// Show corresponding buttons / filter options for search select value - mobile
+$("#mobileSearchFor").change(function () {
+  if ($("#mobileSearchFor").val() == "employees") {
+    $("#mobileFilterBtn").show();
+    $("#mobileFilterByDepartment").show();
+    $("#mobileFilterByLocation").show();
+    $("#addEmployeeBtn").show();
+    $("#addDepartmentBtn").hide();
+    $("#addLocationBtn").hide();
+    getAllEmployees();
+  }
+
+  if ($("#mobileSearchFor").val() == "departments") {
+    $("#mobileFilterBtn").hide();
+    $("#mobileFilterByDepartment").hide();
+    $("#mobileFilterByLocation").hide();
+    $("#addEmployeeBtn").hide();
+    $("#addDepartmentBtn").show();
+    $("#addLocationBtn").hide();
+    getAllDepartments();
+  }
+
+  if ($("#mobileSearchFor").val() == "locations") {
+    $("#mobileFilterBtn").hide();
+    $("#mobileFilterByDepartment").hide();
+    $("#mobileFilterByLocation").hide();
+    $("#addEmployeeBtn").hide();
+    $("#addDepartmentBtn").hide();
+    $("#addLocationBtn").show();
+    getAllLocations();
+  }
+});
+
+// Disable location select on department select change - desktop
 $("#filterByDepartment").change(function () {
   if ($("#filterByDepartment").val() == "allDepartments") {
     $("#filterByLocation").attr("disabled", false);
@@ -894,7 +1040,19 @@ $("#filterByDepartment").change(function () {
   }
 });
 
-// Disable department select on location select change
+// Disable location select on department select change - mobile
+$("#mobileFilterByDepartment").change(function () {
+  if ($("#mobileFilterByDepartment").val() == "allDepartments") {
+    $("#mobileFilterByLocation").attr("disabled", false);
+    getAllEmployees();
+  } else {
+    $("#mobileFilterByLocation").attr("disabled", true);
+    employeeMobileFilterByDepartment();
+    $(".mobileFilterDropdown").hide();
+  }
+});
+
+// Disable department select on location select change - desktop
 $("#filterByLocation").change(function () {
   if ($("#filterByLocation").val() == "allLocations") {
     $("#filterByDepartment").attr("disabled", false);
@@ -902,6 +1060,18 @@ $("#filterByLocation").change(function () {
   } else {
     $("#filterByDepartment").attr("disabled", true);
     employeeFilterByLocation();
+    $(".mobileFilterDropdown").hide();
+  }
+});
+
+// Disable department select on location select change - mobile
+$("#mobileFilterByLocation").change(function () {
+  if ($("#mobileFilterByLocation").val() == "allLocations") {
+    $("#mobileFilterByDepartment").attr("disabled", false);
+    getAllEmployees();
+  } else {
+    $("#mobileFilterByDepartment").attr("disabled", true);
+    employeeMobileFilterByLocation();
     $(".mobileFilterDropdown").hide();
   }
 });
