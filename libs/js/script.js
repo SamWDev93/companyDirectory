@@ -1009,9 +1009,9 @@ $("#mobileSearchFor").change(function () {
     $("#mobileFilterBtn").show();
     $("#mobileFilterByDepartment").show();
     $("#mobileFilterByLocation").show();
-    $("#addEmployeeBtn").show();
-    $("#addDepartmentBtn").hide();
-    $("#addLocationBtn").hide();
+    $("#mobileAddEmployeeBtn").show();
+    $("#mobileAddDepartmentBtn").hide();
+    $("#mobileAddLocationBtn").hide();
     getAllEmployees();
   }
 
@@ -1019,9 +1019,9 @@ $("#mobileSearchFor").change(function () {
     $("#mobileFilterBtn").hide();
     $("#mobileFilterByDepartment").hide();
     $("#mobileFilterByLocation").hide();
-    $("#addEmployeeBtn").hide();
-    $("#addDepartmentBtn").show();
-    $("#addLocationBtn").hide();
+    $("#mobileAddEmployeeBtn").hide();
+    $("#mobileAddDepartmentBtn").show();
+    $("#mobileAddLocationBtn").hide();
     getAllDepartments();
   }
 
@@ -1029,9 +1029,9 @@ $("#mobileSearchFor").change(function () {
     $("#mobileFilterBtn").hide();
     $("#mobileFilterByDepartment").hide();
     $("#mobileFilterByLocation").hide();
-    $("#addEmployeeBtn").hide();
-    $("#addDepartmentBtn").hide();
-    $("#addLocationBtn").show();
+    $("#mobileAddEmployeeBtn").hide();
+    $("#mobileAddDepartmentBtn").hide();
+    $("#mobileAddLocationBtn").show();
     getAllLocations();
   }
 });

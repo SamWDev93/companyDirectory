@@ -6,6 +6,17 @@
   .centerItems {
     display: flex;
     align-items: center;
+
+    #mobileAddEmployeeBtn,
+    #mobileAddDepartmentBtn,
+    #mobileAddLocationBtn {
+      margin: 0.1rem;
+    }
+
+    #mobileAddDepartmentBtn,
+    #mobileAddLocationBtn {
+      display: none;
+    }
   }
 
   @include xs {
