@@ -42,7 +42,7 @@
   .card {
     width: 21rem;
     margin: 1rem;
-    box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.7);
+    box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.2);
 
     .userIcon {
       width: 60%;
@@ -82,6 +82,10 @@
       width: 5rem;
       margin-top: 0.75rem;
     }
+  }
+
+  .card:hover {
+    box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.7);
   }
 
   .card-body {
