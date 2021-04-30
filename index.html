@@ -36,7 +36,7 @@
       <div
         class="centerItems"
       >
-        <select name="mobileSearchFor" id="mobileSearchFor">
+        <select name="mobileSearchFor" id="mobileSearchFor" class="form-select">
           <option value="employees" selected="selected">Employees</option>
           <option value="departments">Departments</option>
           <option value="locations">Locations</option>
@@ -88,12 +88,12 @@
     <!-- Mobile Filter Dropdown -->
     <div class="container-fluid bg-primary mobileFilterDropdown">
       <div>
-        <select name="mobileFilterByDepartment" id="mobileFilterByDepartment">
+        <select name="mobileFilterByDepartment" id="mobileFilterByDepartment" class="form-select">
           <option value="allDepartments">All Departments</option>
         </select>
       </div>
       <div>
-        <select name="mobileFilterByLocation" id="mobileFilterByLocation">
+        <select name="mobileFilterByLocation" id="mobileFilterByLocation" class="form-select">
           <option value="allLocations">All Locations</option>
         </select>
       </div>
@@ -103,22 +103,20 @@
       <!-- Search / Filter Section -->
       <div class="filter bg-light">
         <div class="searchFilterContainer container-fluid">
-          <h5>Search:</h5>
-          <select name="searchFor" id="searchFor">
+          <h5>View</h5>
+          <select name="searchFor" id="searchFor" class="form-select">
             <option value="employees" selected="selected">Employees</option>
             <option value="departments">Departments</option>
             <option value="locations">Locations</option>
           </select>
           <br class="lineBreak" />
           <br class="lineBreak" />
-          <br class="lineBreak" />
-          <h5 id="filterByTitle">Filter By:</h5>
-          <select name="filterByDepartment" id="filterByDepartment">
+          <h5 id="filterByTitle">Apply Filter</h5>
+          <select name="filterByDepartment" id="filterByDepartment" class="form-select">
             <option value="allDepartments">All Departments</option>
           </select>
           <br class="lineBreak" />
-          <br class="lineBreak" />
-          <select name="filterByLocation" id="filterByLocation">
+          <select name="filterByLocation" id="filterByLocation" class="form-select">
             <option value="allLocations">All Locations</option>
           </select>
 
@@ -160,7 +158,12 @@
       </div>
 
       <!-- Records Section -->
-      <div class="records d-flex justify-content-center bg-light"></div>
+      <div class="records d-flex justify-content-center bg-light">
+        <!-- Loader -->
+        <div id="loader-container" class="container-fluid d-flex justify-content-center">
+          <div id="loader"></div>
+        </div>
+      </div>
 
       <!-- Add Employee Modal -->
       <div
@@ -224,7 +227,7 @@
                   <label for="departmentSelect" class="form-label"
                     >Department:</label
                   >
-                  <select class="form-control" id="departmentSelect">
+                  <select class="form-select" id="departmentSelect">
                     <option value="selectADepartment">
                       Select a Department
                     </option>
@@ -234,7 +237,7 @@
                   <label for="addEmployeeLocationSelect" class="form-label"
                     >Location:</label
                   >
-                  <select class="form-control" id="addEmployeeLocationSelect">
+                  <select class="form-select" id="addEmployeeLocationSelect">
                     <option value="selectALocation">Select a Location</option>
                   </select>
                 </div>
@@ -299,7 +302,7 @@
                   <label for="addDepartmentLocationSelect" class="form-label"
                     >Location:</label
                   >
-                  <select class="form-control" id="addDepartmentLocationSelect">
+                  <select class="form-select" id="addDepartmentLocationSelect">
                     <option value="selectALocation">Select a Location</option>
                   </select>
                 </div>
@@ -455,7 +458,7 @@
                 <label for="updateDepartmentSelect" class="form-label"
                   >Department:</label
                 >
-                <select class="form-control" id="updateDepartmentSelect">
+                <select class="form-select" id="updateDepartmentSelect">
                   <option value="selectADepartment">Select a Department</option>
                 </select>
               </div>
@@ -463,7 +466,7 @@
                 <label for="updateEmployeeLocationSelect" class="form-label"
                   >Location:</label
                 >
-                <select class="form-control" id="updateEmployeeLocationSelect">
+                <select class="form-select" id="updateEmployeeLocationSelect">
                   <option value="selectALocation">Select a Location</option>
                 </select>
               </div>
@@ -528,7 +531,7 @@
                   >Location:</label
                 >
                 <select
-                  class="form-control"
+                class="form-select"
                   id="updateDepartmentLocationSelect"
                 >
                   <option value="selectALocation">Select a Location</option>

@@ -11,6 +11,8 @@ var departmentCount;
 
 // GET functions
 function getAllEmployees() {
+  $("#loader-container").show();
+  $("#loader").show();
   $.ajax({
     url: "libs/php/getAll.php",
     type: "POST",
@@ -47,9 +49,13 @@ function getAllEmployees() {
       console.log(errorThrown);
     },
   });
+  $("#loader-container").hide();
+  $("#loader").hide();
 }
 
 function getAllDepartments() {
+  $("#loader-container").show();
+  $("#loader").show();
   $.ajax({
     url: "libs/php/getAllDepartments.php",
     type: "POST",
@@ -83,9 +89,13 @@ function getAllDepartments() {
       console.log(errorThrown);
     },
   });
+  $("#loader-container").hide();
+  $("#loader").hide();
 }
 
 function getAllLocations() {
+  $("#loader-container").show();
+  $("#loader").show();
   $.ajax({
     url: "libs/php/getAllLocations.php",
     type: "POST",
@@ -116,6 +126,8 @@ function getAllLocations() {
       console.log(errorThrown);
     },
   });
+  $("#loader-container").hide();
+  $("#loader").hide();
 }
 
 function getEmployeeByID() {
@@ -765,8 +777,6 @@ function validateUpdateLocationForm() {
 
 // Retrieve all records on load
 $(document).ready(() => {
-  $("#addDepartmentBtn").hide();
-  $("#addLocationBtn").hide();
   getAllEmployees();
 });
 
