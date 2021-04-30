@@ -6,6 +6,8 @@ var updateLocationID = "No Location ID";
 var deleteEmployeeID = "No Employee ID";
 var deleteDepartmentID = "No Department ID";
 var deleteLocationID = "No Location ID";
+var employeeCount;
+var departmentCount;
 
 // GET functions
 function getAllEmployees() {
@@ -623,6 +625,52 @@ function employeeMobileFilterByLocation() {
   });
 }
 
+// Count employee function
+function countEmployeeByDepartmentID() {
+  $.ajax({
+    url: "libs/php/countEmployeeByDepartmentID.php",
+    type: "POST",
+    dataType: "json",
+    data: {
+      id: deleteDepartmentID,
+    },
+
+    success: function (result) {
+      if (result.status.name == "ok") {
+        employeeCount = result["data"][0]["COUNT(id)"];
+        console.log(employeeCount);
+      }
+    },
+
+    error: function (jqXHR, textStatus, errorThrown) {
+      console.log(errorThrown);
+    },
+  });
+}
+
+// Count department function
+function countDepartmentByLocationID() {
+  $.ajax({
+    url: "libs/php/countDepartmentByLocationID.php",
+    type: "POST",
+    dataType: "json",
+    data: {
+      id: deleteLocationID,
+    },
+
+    success: function (result) {
+      if (result.status.name == "ok") {
+        departmentCount = result["data"][0]["COUNT(id)"];
+        console.log(departmentCount);
+      }
+    },
+
+    error: function (jqXHR, textStatus, errorThrown) {
+      console.log(errorThrown);
+    },
+  });
+}
+
 // Validate add form functions
 function validateAddEmployeeForm() {
   if (
@@ -1169,7 +1217,14 @@ $("#employeeConfirmDeleteCheck").click(function () {
 
 $("#departmentConfirmDeleteCheck").click(function () {
   if ($(this).is(":checked")) {
-    $("#departmentConfirmDeleteBtn").attr("disabled", false);
+    if (employeeCount == 0) {
+      $("#departmentConfirmDeleteBtn").attr("disabled", false);
+    } else {
+      alert(
+        "You cannot delete this department because it has employee records assigned to it. Please reassign employee records to another department to allow deletion."
+      );
+      $("#departmentConfirmDeleteCheck").prop("checked", false);
+    }
   } else {
     $("#departmentConfirmDeleteBtn").attr("disabled", true);
   }
@@ -1177,7 +1232,14 @@ $("#departmentConfirmDeleteCheck").click(function () {
 
 $("#locationConfirmDeleteCheck").click(function () {
   if ($(this).is(":checked")) {
-    $("#locationConfirmDeleteBtn").attr("disabled", false);
+    if (departmentCount == 0) {
+      $("#locationConfirmDeleteBtn").attr("disabled", false);
+    } else {
+      alert(
+        "You cannot delete this location because it has department records assigned to it. Please reassign department records to another location to allow deletion."
+      );
+      $("#locationConfirmDeleteCheck").prop("checked", false);
+    }
   } else {
     $("#locationConfirmDeleteBtn").attr("disabled", true);
   }
@@ -1240,12 +1302,14 @@ $("#deleteEmployeeModal").on("show.bs.modal", function (e) {
 $("#deleteDepartmentModal").on("show.bs.modal", function (e) {
   deleteDepartmentID = $(e.relatedTarget).data("department-id");
   console.log(deleteDepartmentID);
+  countEmployeeByDepartmentID();
 });
 
 // Get location ID for deletion
 $("#deleteLocationModal").on("show.bs.modal", function (e) {
   deleteLocationID = $(e.relatedTarget).data("location-id");
   console.log(deleteLocationID);
+  countDepartmentByLocationID();
 });
 
 // Run delete routines on delete button click
