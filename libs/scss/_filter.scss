@@ -100,6 +100,24 @@
       font-size: 0.9rem;
     }
 
+    .totalRecords {
+      padding: 0;
+
+      @include xs {
+        margin-top: 1.5rem;
+        h5 {
+          font-size: 1.1rem;
+        }
+      }
+
+      @include xl {
+        margin-top: 2.5rem;
+        h5 {
+          font-size: 1.25rem;
+        }
+      }
+    }
+
     #addEmployeeBtn,
     #addDepartmentBtn,
     #addLocationBtn {

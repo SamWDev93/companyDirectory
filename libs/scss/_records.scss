@@ -16,29 +16,6 @@
     width: 83vw;
   }
 
-  .totalRecords {
-    padding: 0;
-    text-align: center;
-
-    @include xs {
-      margin-top: 1.5rem;
-      margin-left: 0.5rem;
-      margin-right: 0.5rem;
-      h5 {
-        font-size: 1.1rem;
-      }
-    }
-
-    @include xl {
-      margin-top: 2.5rem;
-      margin-left: 1.3rem;
-      margin-right: 0rem;
-      h5 {
-        font-size: 1.25rem;
-      }
-    }
-  }
-
   .card {
     width: 21rem;
     margin: 1rem;
@@ -93,5 +70,15 @@
     padding-bottom: 1rem;
     padding-left: 1rem;
     padding-right: 1rem;
+  }
+
+  #toTop {
+    font-size: 2rem;
+    padding: 5px 3px;
+    color: #0d6efd;
+    position: fixed;
+    bottom: 0;
+    right: 25px;
+    display: none;
   }
 }

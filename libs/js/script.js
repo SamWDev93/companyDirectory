@@ -9,10 +9,24 @@ var deleteLocationID = "No Location ID";
 var employeeCount;
 var departmentCount;
 
+$(window).scroll(function () {
+  if ($(this).scrollTop()) {
+    $("#toTop").fadeIn();
+  } else {
+    $("#toTop").fadeOut();
+  }
+});
+
+$("#toTop").click(function () {
+  //1 second of animation time
+  //html works for FFX but not Chrome
+  //body works for Chrome but not FFX
+  //This strange selector seems to work universally
+  $("html, body").animate({ scrollTop: 0 }, 1000);
+});
+
 // GET functions
 function getAllEmployees() {
-  $("#loader-container").show();
-  $("#loader").show();
   $.ajax({
     url: "libs/php/getAll.php",
     type: "POST",
@@ -24,12 +38,20 @@ function getAllEmployees() {
         totalRecords = 0;
 
         $(".records").empty();
+
+        $(".records").append(
+          `<div id="loader-container"><div id="loader"></div></div>`
+        );
+        $("#loader-container").show();
+        $("#loader").show();
+
         for (let i = 0; i < result.data.length; i++) {
           totalRecords++;
         }
 
-        $(".records").append(
-          `<div class='totalRecords container-fluid'><h5>Displaying ${totalRecords} Employee Records:</h5></div>`
+        $(".totalRecords").empty();
+        $(".totalRecords").append(
+          `<h5>Displaying ${totalRecords} Records</h5>`
         );
 
         for (let i = 0; i < result.data.length; i++) {
@@ -42,6 +64,16 @@ function getAllEmployees() {
             data-bs-target='#deleteEmployeeModal' data-employee-id='${result.data[i].id}'>Delete</button></td></tr></table></div></div>`
           );
         }
+
+        $(".records").append(
+          `<div id="toTop"><i class="fas fa-arrow-circle-up"></i></div>`
+        );
+
+        $(document).ready(function () {
+          $("#loader-container").hide();
+          $("#loader").hide();
+          $("#loader-container").remove();
+        });
       }
     },
 
@@ -49,13 +81,9 @@ function getAllEmployees() {
       console.log(errorThrown);
     },
   });
-  $("#loader-container").hide();
-  $("#loader").hide();
 }
 
 function getAllDepartments() {
-  $("#loader-container").show();
-  $("#loader").show();
   $.ajax({
     url: "libs/php/getAllDepartments.php",
     type: "POST",
@@ -67,12 +95,20 @@ function getAllDepartments() {
         totalRecords = 0;
 
         $(".records").empty();
+
+        $(".records").append(
+          `<div id="loader-container"><div id="loader"></div></div>`
+        );
+        $("#loader-container").show();
+        $("#loader").show();
+
         for (let i = 0; i < result.data.length; i++) {
           totalRecords++;
         }
 
-        $(".records").append(
-          `<div class='totalRecords container-fluid'><h5>Displaying ${totalRecords} Department Records:</h5></div>`
+        $(".totalRecords").empty();
+        $(".totalRecords").append(
+          `<h5>Displaying ${totalRecords} Records</h5>`
         );
 
         for (let i = 0; i < result.data.length; i++) {
@@ -82,6 +118,15 @@ function getAllDepartments() {
             data-bs-target='#deleteDepartmentModal' data-department-id='${result.data[i].id}'>Delete</button></td></tr></table></div></div>`
           );
         }
+        $(".records").append(
+          `<div id="toTop"><i class="fas fa-arrow-circle-up"></i></div>`
+        );
+
+        $(document).ready(function () {
+          $("#loader-container").hide();
+          $("#loader").hide();
+          $("#loader-container").remove();
+        });
       }
     },
 
@@ -89,13 +134,9 @@ function getAllDepartments() {
       console.log(errorThrown);
     },
   });
-  $("#loader-container").hide();
-  $("#loader").hide();
 }
 
 function getAllLocations() {
-  $("#loader-container").show();
-  $("#loader").show();
   $.ajax({
     url: "libs/php/getAllLocations.php",
     type: "POST",
@@ -107,18 +148,36 @@ function getAllLocations() {
         totalRecords = 0;
 
         $(".records").empty();
+
+        $(".records").append(
+          `<div id="loader-container"><div id="loader"></div></div>`
+        );
+        $("#loader-container").show();
+        $("#loader").show();
+
         for (let i = 0; i < result.data.length; i++) {
           totalRecords++;
         }
 
-        $(".records").append(
-          `<div class='totalRecords container-fluid'><h5>Displaying ${totalRecords} Location Records:</h5></div>`
+        $(".totalRecords").empty();
+        $(".totalRecords").append(
+          `<h5>Displaying ${totalRecords} Records</h5>`
         );
         for (let i = 0; i < result.data.length; i++) {
           $(".records").append(
             `<div class='card'><table><tr><td class='locationIcon alignCenter'><img src='./img/location-icon.png'></td></tr></table><div class='card-body'><table><tr><td class='departmentName alignCenter'><b>${result.data[i].name}</b></td></tr></table><table><tr><td class='alignCenter'><button type='button' id='editLocationBtn' class='btn btn-primary btn-sm' data-bs-toggle='modal' data-bs-target='#updateLocationModal' data-location-id='${result.data[i].id}'>Edit</button></td><td class='alignCenter'><button type='button' id='deleteLocationBtn' class='btn btn-danger btn-sm' data-bs-toggle='modal' data-bs-target='#deleteLocationModal' data-location-id='${result.data[i].id}'>Delete</button></td></tr></table></div></div>`
           );
         }
+
+        $(".records").append(
+          `<div id="toTop"><i class="fas fa-arrow-circle-up"></i></div>`
+        );
+
+        $(document).ready(function () {
+          $("#loader-container").hide();
+          $("#loader").hide();
+          $("#loader-container").remove();
+        });
       }
     },
 
@@ -504,12 +563,20 @@ function employeeFilterByDepartment() {
         totalRecords = 0;
 
         $(".records").empty();
+
+        $(".records").append(
+          `<div id="loader-container"><div id="loader"></div></div>`
+        );
+        $("#loader-container").show();
+        $("#loader").show();
+
         for (let i = 0; i < result.data.length; i++) {
           totalRecords++;
         }
 
-        $(".records").append(
-          `<div class='totalRecords container-fluid'><h5>Displaying ${totalRecords} Employee Records:</h5></div>`
+        $(".totalRecords").empty();
+        $(".totalRecords").append(
+          `<h5>Displaying ${totalRecords} Records</h5>`
         );
 
         for (let i = 0; i < result.data.length; i++) {
@@ -517,6 +584,16 @@ function employeeFilterByDepartment() {
             `<div class='card'><table><tr><td class='alignCenter'><img src='./img/user-icon.png' class='userIcon'></td></tr></table><div class='card-body'><table><tr><td class='fullName alignCenter'><b>${result.data[i].firstName} ${result.data[i].lastName}</b><a href='mailto:${result.data[i].email}'><i class="fas fa-envelope-open-text"></i></a></td></tr></table><table class='table table-striped mt-3'><tr><td class='alignLeft'><i class="fas fa-network-wired"></i><b>Department: </b></td><td class='department alignRight'>${result.data[i].department}</td></tr><tr><td class='alignLeft'><i class="fas fa-search-location"></i><b>Location:</b></td><td class='location alignRight'>${result.data[i].location}</td></tr></table><table><tr><td class='alignCenter'><button type='button' class='btn btn-primary btn-sm'>Edit</button></td><td class='alignCenter'><button type='button' class='btn btn-danger btn-sm'>Delete</button></td></tr></table></div></div>`
           );
         }
+
+        $(".records").append(
+          `<div id="toTop"><i class="fas fa-arrow-circle-up"></i></div>`
+        );
+
+        $(document).ready(function () {
+          $("#loader-container").hide();
+          $("#loader").hide();
+          $("#loader-container").remove();
+        });
       }
     },
 
@@ -541,12 +618,20 @@ function employeeMobileFilterByDepartment() {
         totalRecords = 0;
 
         $(".records").empty();
+
+        $(".records").append(
+          `<div id="loader-container"><div id="loader"></div></div>`
+        );
+        $("#loader-container").show();
+        $("#loader").show();
+
         for (let i = 0; i < result.data.length; i++) {
           totalRecords++;
         }
 
-        $(".records").append(
-          `<div class='totalRecords container-fluid'><h5>Displaying ${totalRecords} Employee Records:</h5></div>`
+        $(".totalRecords").empty();
+        $(".totalRecords").append(
+          `<h5>Displaying ${totalRecords} Records</h5>`
         );
 
         for (let i = 0; i < result.data.length; i++) {
@@ -554,6 +639,16 @@ function employeeMobileFilterByDepartment() {
             `<div class='card'><table><tr><td class='alignCenter'><img src='./img/user-icon.png' class='userIcon'></td></tr></table><div class='card-body'><table><tr><td class='fullName alignCenter'><b>${result.data[i].firstName} ${result.data[i].lastName}</b><a href='mailto:${result.data[i].email}'><i class="fas fa-envelope-open-text"></i></a></td></tr></table><table class='table table-striped mt-3'><tr><td class='alignLeft'><i class="fas fa-network-wired"></i><b>Department: </b></td><td class='department alignRight'>${result.data[i].department}</td></tr><tr><td class='alignLeft'><i class="fas fa-search-location"></i><b>Location:</b></td><td class='location alignRight'>${result.data[i].location}</td></tr></table><table><tr><td class='alignCenter'><button type='button' class='btn btn-primary btn-sm'>Edit</button></td><td class='alignCenter'><button type='button' class='btn btn-danger btn-sm'>Delete</button></td></tr></table></div></div>`
           );
         }
+
+        $(".records").append(
+          `<div id="toTop"><i class="fas fa-arrow-circle-up"></i></div>`
+        );
+
+        $(document).ready(function () {
+          $("#loader-container").hide();
+          $("#loader").hide();
+          $("#loader-container").remove();
+        });
       }
     },
 
@@ -578,12 +673,20 @@ function employeeFilterByLocation() {
         totalRecords = 0;
 
         $(".records").empty();
+
+        $(".records").append(
+          `<div id="loader-container"><div id="loader"></div></div>`
+        );
+        $("#loader-container").show();
+        $("#loader").show();
+
         for (let i = 0; i < result.data.length; i++) {
           totalRecords++;
         }
 
-        $(".records").append(
-          `<div class='totalRecords container-fluid'><h5>Displaying ${totalRecords} Employee Records:</h5></div>`
+        $(".totalRecords").empty();
+        $(".totalRecords").append(
+          `<h5>Displaying ${totalRecords} Records</h5>`
         );
 
         for (let i = 0; i < result.data.length; i++) {
@@ -591,6 +694,15 @@ function employeeFilterByLocation() {
             `<div class='card'><table><tr><td class='alignCenter'><img src='./img/user-icon.png' class='userIcon'></td></tr></table><div class='card-body'><table><tr><td class='fullName alignCenter'><b>${result.data[i].firstName} ${result.data[i].lastName}</b><a href='mailto:${result.data[i].email}'><i class="fas fa-envelope-open-text"></i></a></td></tr></table><table class='table table-striped mt-3'><tr><td class='alignLeft'><i class="fas fa-network-wired"></i><b>Department: </b></td><td class='department alignRight'>${result.data[i].department}</td></tr><tr><td class='alignLeft'><i class="fas fa-search-location"></i><b>Location:</b></td><td class='location alignRight'>${result.data[i].location}</td></tr></table><table><tr><td class='alignCenter'><button type='button' class='btn btn-primary btn-sm'>Edit</button></td><td class='alignCenter'><button type='button' class='btn btn-danger btn-sm'>Delete</button></td></tr></table></div></div>`
           );
         }
+        $(".records").append(
+          `<div id="toTop"><i class="fas fa-arrow-circle-up"></i></div>`
+        );
+
+        $(document).ready(function () {
+          $("#loader-container").hide();
+          $("#loader").hide();
+          $("#loader-container").remove();
+        });
       }
     },
 
@@ -615,12 +727,20 @@ function employeeMobileFilterByLocation() {
         totalRecords = 0;
 
         $(".records").empty();
+
+        $(".records").append(
+          `<div id="loader-container"><div id="loader"></div></div>`
+        );
+        $("#loader-container").show();
+        $("#loader").show();
+
         for (let i = 0; i < result.data.length; i++) {
           totalRecords++;
         }
 
-        $(".records").append(
-          `<div class='totalRecords container-fluid'><h5>Displaying ${totalRecords} Employee Records:</h5></div>`
+        $(".totalRecords").empty();
+        $(".totalRecords").append(
+          `<h5>Displaying ${totalRecords} Records</h5>`
         );
 
         for (let i = 0; i < result.data.length; i++) {
@@ -628,6 +748,15 @@ function employeeMobileFilterByLocation() {
             `<div class='card'><table><tr><td class='alignCenter'><img src='./img/user-icon.png' class='userIcon'></td></tr></table><div class='card-body'><table><tr><td class='fullName alignCenter'><b>${result.data[i].firstName} ${result.data[i].lastName}</b><a href='mailto:${result.data[i].email}'><i class="fas fa-envelope-open-text"></i></a></td></tr></table><table class='table table-striped mt-3'><tr><td class='alignLeft'><i class="fas fa-network-wired"></i><b>Department: </b></td><td class='department alignRight'>${result.data[i].department}</td></tr><tr><td class='alignLeft'><i class="fas fa-search-location"></i><b>Location:</b></td><td class='location alignRight'>${result.data[i].location}</td></tr></table><table><tr><td class='alignCenter'><button type='button' class='btn btn-primary btn-sm'>Edit</button></td><td class='alignCenter'><button type='button' class='btn btn-danger btn-sm'>Delete</button></td></tr></table></div></div>`
           );
         }
+        $(".records").append(
+          `<div id="toTop"><i class="fas fa-arrow-circle-up"></i></div>`
+        );
+
+        $(document).ready(function () {
+          $("#loader-container").hide();
+          $("#loader").hide();
+          $("#loader-container").remove();
+        });
       }
     },
 
