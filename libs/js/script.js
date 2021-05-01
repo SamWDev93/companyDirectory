@@ -9,22 +9,6 @@ var deleteLocationID = "No Location ID";
 var employeeCount;
 var departmentCount;
 
-$(window).scroll(function () {
-  if ($(this).scrollTop()) {
-    $("#toTop").fadeIn();
-  } else {
-    $("#toTop").fadeOut();
-  }
-});
-
-$("#toTop").click(function () {
-  //1 second of animation time
-  //html works for FFX but not Chrome
-  //body works for Chrome but not FFX
-  //This strange selector seems to work universally
-  $("html, body").animate({ scrollTop: 0 }, 1000);
-});
-
 // GET functions
 function getAllEmployees() {
   $.ajax({
@@ -1470,4 +1454,20 @@ $(document).ready(function () {
 
 $("#mobileFilterBtn").click(function () {
   $(".mobileFilterDropdown").toggle();
+});
+
+$(document).ready(function () {
+  //Check to see if the window is top if not then display button
+  $(".records").scroll(function () {
+    if ($(this).scrollTop() > 100) {
+      $("#toTop").fadeIn();
+    } else {
+      $("#toTop").fadeOut();
+    }
+  });
+
+  //Click event to scroll to top
+  $(document).on("click", "#toTop", function () {
+    $(".records").animate({ scrollTop: 0 }, 1000);
+  });
 });

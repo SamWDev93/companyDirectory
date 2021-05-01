@@ -78,7 +78,14 @@
     color: #0d6efd;
     position: fixed;
     bottom: 0;
-    right: 25px;
     display: none;
+
+    @include xs {
+      right: 8px;
+    }
+
+    @include lg {
+      right: 25px;
+    }
   }
 }
