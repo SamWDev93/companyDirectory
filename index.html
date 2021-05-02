@@ -36,7 +36,7 @@
       <div
         class="centerItems"
       >
-        <select name="mobileSearchFor" id="mobileSearchFor" class="form-select">
+        <select name="mobileSearchFor" id="mobileSearchFor" class="form-select form-select-sm">
           <option value="employees" selected="selected">Employees</option>
           <option value="departments">Departments</option>
           <option value="locations">Locations</option>
@@ -48,7 +48,7 @@
           <button
             type="button"
             id="mobileAddEmployeeBtn"
-            class="btn btn-primary"
+            class="btn btn-sm btn-primary"
             data-bs-toggle="modal"
             data-bs-target="#addEmployeeModal"
           >
@@ -57,7 +57,7 @@
           <button
             type="button"
             id="mobileAddDepartmentBtn"
-            class="btn btn-primary"
+            class="btn btn-sm btn-primary"
             data-bs-toggle="modal"
             data-bs-target="#addDepartmentModal"
           >
@@ -66,7 +66,7 @@
           <button
             type="button"
             id="mobileAddLocationBtn"
-            class="btn btn-primary"
+            class="btn btn-sm btn-primary"
             data-bs-toggle="modal"
             data-bs-target="#addLocationModal"
           >
@@ -77,7 +77,7 @@
           <button
             type="button"
             id="mobileFilterBtn"
-            class="btn btn-primary"
+            class="btn btn-sm btn-primary"
           >
           <i class="fas fa-filter"></i>
           </button>
@@ -88,12 +88,12 @@
     <!-- Mobile Filter Dropdown -->
     <div class="container-fluid bg-primary mobileFilterDropdown">
       <div>
-        <select name="mobileFilterByDepartment" id="mobileFilterByDepartment" class="form-select">
+        <select name="mobileFilterByDepartment" id="mobileFilterByDepartment" class="form-select form-select-sm">
           <option value="allDepartments">All Departments</option>
         </select>
       </div>
       <div>
-        <select name="mobileFilterByLocation" id="mobileFilterByLocation" class="form-select">
+        <select name="mobileFilterByLocation" id="mobileFilterByLocation" class="form-select form-select-sm">
           <option value="allLocations">All Locations</option>
         </select>
       </div>
@@ -171,57 +171,57 @@
       >
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Add Employee</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
             <div class="modal-body">
               <form>
                 <div class="mb-3">
                   <label for="firstNameInput" class="form-label"
-                    >First Name:</label
+                    >First Name</label
                   >
                   <input
                     type="text"
                     class="form-control"
                     id="firstNameInput"
-                    placeholder="Joe"
                     required
                   />
                 </div>
                 <div class="mb-3">
                   <label for="lastNameInput" class="form-label"
-                    >Last Name:</label
+                    >Last Name</label
                   >
                   <input
                     type="text"
                     class="form-control"
                     id="lastNameInput"
-                    placeholder="Bloggs"
                     required
                   />
                 </div>
                 <div class="mb-3">
-                  <label for="emailInput" class="form-label">Email:</label>
+                  <label for="emailInput" class="form-label">Email</label>
                   <input
                     type="email"
                     class="form-control"
                     id="emailInput"
-                    placeholder="joebloggs@xyzltd.com"
                     required
                   />
                 </div>
                 <div class="mb-3">
                   <label for="jobTitleInput" class="form-label"
-                    >Job Title:</label
+                    >Job Title</label
                   >
                   <input
                     type="text"
                     class="form-control"
                     id="jobTitleInput"
-                    placeholder="Software Developer"
                     required
                   />
                 </div>
                 <div class="mb-3">
                   <label for="departmentSelect" class="form-label"
-                    >Department:</label
+                    >Department</label
                   >
                   <select class="form-select" id="departmentSelect">
                     <option value="selectADepartment">
@@ -231,7 +231,7 @@
                 </div>
                 <div class="mb-3">
                   <label for="addEmployeeLocationSelect" class="form-label"
-                    >Location:</label
+                    >Location</label
                   >
                   <select class="form-select" id="addEmployeeLocationSelect">
                     <option value="selectALocation">Select a Location</option>
@@ -254,17 +254,13 @@
                 type="button"
                 class="btn btn-secondary"
                 data-bs-dismiss="modal"
-              >
-                Cancel
-              </button>
+              ><i class="fas fa-times"></i></button>
               <button
                 type="submit"
                 id="employeeConfirmAddBtn"
                 class="btn btn-primary"
                 disabled
-              >
-                Add Employee
-              </button>
+              ><i class="fas fa-check"></i></button>
             </div>
           </div>
         </div>
@@ -280,23 +276,26 @@
       >
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Add Department</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
             <div class="modal-body">
               <form>
                 <div class="mb-3">
                   <label for="departmentNameInput" class="form-label"
-                    >Department:</label
+                    >Department</label
                   >
                   <input
                     type="text"
                     class="form-control"
                     id="departmentNameInput"
-                    placeholder="Procurement"
                     required
                   />
                 </div>
                 <div class="mb-3">
                   <label for="addDepartmentLocationSelect" class="form-label"
-                    >Location:</label
+                    >Location</label
                   >
                   <select class="form-select" id="addDepartmentLocationSelect">
                     <option value="selectALocation">Select a Location</option>
@@ -322,17 +321,13 @@
                 type="button"
                 class="btn btn-secondary"
                 data-bs-dismiss="modal"
-              >
-                Cancel
-              </button>
+              ><i class="fas fa-times"></i></button>
               <button
                 type="submit"
                 id="departmentConfirmAddBtn"
                 class="btn btn-primary"
                 disabled
-              >
-                Add Department
-              </button>
+              ><i class="fas fa-check"></i></button>
             </div>
           </div>
         </div>
@@ -348,17 +343,20 @@
       >
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Add Location</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
             <div class="modal-body">
               <form>
                 <div class="mb-3">
                   <label for="locationNameInput" class="form-label"
-                    >Location:</label
+                    >Location</label
                   >
                   <input
                     type="text"
                     class="form-control"
                     id="locationNameInput"
-                    placeholder="Amsterdam"
                     required
                   />
                 </div>
@@ -379,17 +377,13 @@
                 type="button"
                 class="btn btn-secondary"
                 data-bs-dismiss="modal"
-              >
-                Cancel
-              </button>
+              ><i class="fas fa-times"></i></button>
               <button
                 type="submit"
                 id="locationConfirmAddBtn"
                 class="btn btn-primary"
                 disabled
-              >
-                Add Location
-              </button>
+              ><i class="fas fa-check"></i></button>
             </div>
           </div>
         </div>
@@ -406,11 +400,15 @@
     >
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title">Update Employee</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
           <div class="modal-body">
             <form>
               <div class="mb-3">
                 <label for="updateFirstNameInput" class="form-label"
-                  >First Name:</label
+                  >First Name</label
                 >
                 <input
                   type="text"
@@ -421,7 +419,7 @@
               </div>
               <div class="mb-3">
                 <label for="updateLastNameInput" class="form-label"
-                  >Last Name:</label
+                  >Last Name</label
                 >
                 <input
                   type="text"
@@ -431,7 +429,7 @@
                 />
               </div>
               <div class="mb-3">
-                <label for="updateEmailInput" class="form-label">Email:</label>
+                <label for="updateEmailInput" class="form-label">Email</label>
                 <input
                   type="email"
                   class="form-control"
@@ -441,7 +439,7 @@
               </div>
               <div class="mb-3">
                 <label for="updateJobTitleInput" class="form-label"
-                  >Job Title:</label
+                  >Job Title</label
                 >
                 <input
                   type="text"
@@ -452,7 +450,7 @@
               </div>
               <div class="mb-3">
                 <label for="updateDepartmentSelect" class="form-label"
-                  >Department:</label
+                  >Department</label
                 >
                 <select class="form-select" id="updateDepartmentSelect">
                   <option value="selectADepartment">Select a Department</option>
@@ -460,7 +458,7 @@
               </div>
               <div class="mb-3">
                 <label for="updateEmployeeLocationSelect" class="form-label"
-                  >Location:</label
+                  >Location</label
                 >
                 <select class="form-select" id="updateEmployeeLocationSelect">
                   <option value="selectALocation">Select a Location</option>
@@ -483,17 +481,13 @@
               type="button"
               class="btn btn-secondary"
               data-bs-dismiss="modal"
-            >
-              Cancel
-            </button>
+            ><i class="fas fa-times"></i></button>
             <button
               type="submit"
               id="employeeConfirmUpdateBtn"
               class="btn btn-primary"
               disabled
-            >
-              Update Employee
-            </button>
+            ><i class="fas fa-check"></i></button>
           </div>
         </div>
       </div>
@@ -509,11 +503,15 @@
     >
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title">Update Department</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
           <div class="modal-body">
             <form>
               <div class="mb-3">
                 <label for="updateDepartmentNameInput" class="form-label"
-                  >Department:</label
+                  >Department</label
                 >
                 <input
                   type="text"
@@ -524,7 +522,7 @@
               </div>
               <div class="mb-3">
                 <label for="updateDepartmentLocationSelect" class="form-label"
-                  >Location:</label
+                  >Location</label
                 >
                 <select
                 class="form-select"
@@ -552,17 +550,13 @@
               type="button"
               class="btn btn-secondary"
               data-bs-dismiss="modal"
-            >
-              Cancel
-            </button>
+            ><i class="fas fa-times"></i></button>
             <button
               type="submit"
               id="departmentConfirmUpdateBtn"
               class="btn btn-primary"
               disabled
-            >
-              Update Department
-            </button>
+            ><i class="fas fa-check"></i></button>
           </div>
         </div>
       </div>
@@ -578,11 +572,15 @@
     >
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title">Update Location</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
           <div class="modal-body">
             <form>
               <div class="mb-3">
                 <label for="updateLocationNameInput" class="form-label"
-                  >Location:</label
+                  >Location</label
                 >
                 <input
                   type="text"
@@ -608,17 +606,13 @@
               type="button"
               class="btn btn-secondary"
               data-bs-dismiss="modal"
-            >
-              Cancel
-            </button>
+            ><i class="fas fa-times"></i></button>
             <button
               type="submit"
               id="locationConfirmUpdateBtn"
               class="btn btn-primary"
               disabled
-            >
-              Update Location
-            </button>
+            ><i class="fas fa-check"></i></button>
           </div>
         </div>
       </div>
@@ -634,6 +628,10 @@
     >
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Delete Employee</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
           <div class="modal-body">
             <div class="mb-3">
               Are you sure you want to delete this employee record?
@@ -654,17 +652,13 @@
               type="button"
               class="btn btn-secondary"
               data-bs-dismiss="modal"
-            >
-              Cancel
-            </button>
+            ><i class="fas fa-times"></i></button>
             <button
               type="button"
               id="employeeConfirmDeleteBtn"
               class="btn btn-danger"
               disabled
-            >
-              Delete Employee
-            </button>
+            ><i class="fas fa-check"></i></button>
           </div>
         </div>
       </div>
@@ -680,6 +674,10 @@
     >
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Delete Department</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
           <div class="modal-body">
             <div class="mb-3">
               Are you sure you want to delete this department record?
@@ -700,17 +698,13 @@
               type="button"
               class="btn btn-secondary"
               data-bs-dismiss="modal"
-            >
-              Cancel
-            </button>
+            ><i class="fas fa-times"></i></button>
             <button
               type="button"
               id="departmentConfirmDeleteBtn"
               class="btn btn-danger"
               disabled
-            >
-              Delete Department
-            </button>
+            ><i class="fas fa-check"></i></button>
           </div>
         </div>
       </div>
@@ -726,6 +720,10 @@
     >
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Delete Location</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
           <div class="modal-body">
             <div class="mb-3">
               Are you sure you want to delete this location record?
@@ -746,17 +744,13 @@
               type="button"
               class="btn btn-secondary"
               data-bs-dismiss="modal"
-            >
-              Cancel
-            </button>
+            ><i class="fas fa-times"></i></button>
             <button
               type="button"
               id="locationConfirmDeleteBtn"
               class="btn btn-danger"
               disabled
-            >
-              Delete Location
-            </button>
+            ><i class="fas fa-check"></i></button>
           </div>
         </div>
       </div>

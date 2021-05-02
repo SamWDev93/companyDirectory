@@ -43,7 +43,7 @@ function getAllEmployees() {
             result.data[i].jobTitle = "Unspecified";
           }
           $(".records").append(
-            `<div class='card'><table><tr><td class='alignCenter'><img src='./img/user-icon.png' class='userIcon'></td></tr></table><div class='card-body'><table><tr><td class='fullName alignCenter'><b>${result.data[i].firstName} ${result.data[i].lastName}</b><a href='mailto:${result.data[i].email}'><i class="fas fa-envelope-open-text"></i></a></td></tr></table><table class='table table-striped mt-3'><tr><td class='alignLeft'><i class="fas fa-briefcase"></i><b>Job Title: </b></td><td class='jobTitle alignRight'>${result.data[i].jobTitle}</td></tr><tr><td class='alignLeft'><i class="fas fa-network-wired"></i><b>Department: </b></td><td class='department alignRight'>${result.data[i].department}</td></tr><tr><td class='alignLeft'><i class="fas fa-search-location"></i><b>Location:</b></td><td class='location alignRight'>${result.data[i].location}</td></tr></table><table><tr><td class='alignCenter'><button type='button' id='editEmployeeBtn' class='btn btn-primary btn-sm' data-bs-toggle='modal'
+            `<div class='card'><table><tr><td class='alignCenter'><img src='./img/user-icon.png' class='userIcon'></td></tr></table><div class='card-body'><table><tr><td class='fullName alignCenter'><b>${result.data[i].firstName} ${result.data[i].lastName}</b><a href='mailto:${result.data[i].email}'><i class="fas fa-envelope-open-text"></i></a></td></tr></table><table class='table table-striped mt-3'><tr><td class='alignLeft'><i class="fas fa-briefcase"></i><b>Job Title </b></td><td class='jobTitle alignRight'>${result.data[i].jobTitle}</td></tr><tr><td class='alignLeft'><i class="fas fa-network-wired"></i><b>Department </b></td><td class='department alignRight'>${result.data[i].department}</td></tr><tr><td class='alignLeft'><i class="fas fa-search-location"></i><b>Location</b></td><td class='location alignRight'>${result.data[i].location}</td></tr></table><table><tr><td class='alignCenter'><button type='button' id='editEmployeeBtn' class='btn btn-primary btn-sm' data-bs-toggle='modal'
             data-bs-target='#updateEmployeeModal' data-employee-id='${result.data[i].id}'>Edit</button></td><td class='alignCenter'><button type='button' id='deleteEmployeeBtn' class='btn btn-danger btn-sm' data-bs-toggle='modal'
             data-bs-target='#deleteEmployeeModal' data-employee-id='${result.data[i].id}'>Delete</button></td></tr></table></div></div>`
           );
@@ -97,7 +97,7 @@ function getAllDepartments() {
 
         for (let i = 0; i < result.data.length; i++) {
           $(".records").append(
-            `<div class='card'><table><tr><td class='departmentIcon alignCenter'><img src='./img/department-icon.png'></td></tr></table><div class='card-body'><table><tr><td class='departmentName alignCenter'><b>${result.data[i].name}</b></td></tr></table><table class='table table-striped mt-3'><tr><td class='alignLeft'><i class="fas fa-globe-europe"></i><b>Location: </b></td><td class='location alignRight'>${result.data[i].location}</td></tr></table><table><tr><td class='alignCenter'><button type='button' id='updateDepartmentBtn' class='btn btn-primary btn-sm' data-bs-toggle='modal'
+            `<div class='card'><table><tr><td class='departmentIcon alignCenter'><img src='./img/department-icon.png'></td></tr></table><div class='card-body'><table><tr><td class='departmentName alignCenter'><b>${result.data[i].name}</b></td></tr></table><table class='table table-striped mt-3'><tr><td class='alignLeft'><i class="fas fa-globe-europe"></i><b>Location </b></td><td class='location alignRight'>${result.data[i].location}</td></tr></table><table><tr><td class='alignCenter'><button type='button' id='updateDepartmentBtn' class='btn btn-primary btn-sm' data-bs-toggle='modal'
             data-bs-target='#updateDepartmentModal' data-department-id='${result.data[i].id}'>Edit</button></td><td class='alignCenter'><button type='button' id='deleteDepartmentBtn' class='btn btn-danger btn-sm' data-bs-toggle='modal'
             data-bs-target='#deleteDepartmentModal' data-department-id='${result.data[i].id}'>Delete</button></td></tr></table></div></div>`
           );
@@ -565,7 +565,7 @@ function employeeFilterByDepartment() {
 
         for (let i = 0; i < result.data.length; i++) {
           $(".records").append(
-            `<div class='card'><table><tr><td class='alignCenter'><img src='./img/user-icon.png' class='userIcon'></td></tr></table><div class='card-body'><table><tr><td class='fullName alignCenter'><b>${result.data[i].firstName} ${result.data[i].lastName}</b><a href='mailto:${result.data[i].email}'><i class="fas fa-envelope-open-text"></i></a></td></tr></table><table class='table table-striped mt-3'><tr><td class='alignLeft'><i class="fas fa-network-wired"></i><b>Department: </b></td><td class='department alignRight'>${result.data[i].department}</td></tr><tr><td class='alignLeft'><i class="fas fa-search-location"></i><b>Location:</b></td><td class='location alignRight'>${result.data[i].location}</td></tr></table><table><tr><td class='alignCenter'><button type='button' class='btn btn-primary btn-sm'>Edit</button></td><td class='alignCenter'><button type='button' class='btn btn-danger btn-sm'>Delete</button></td></tr></table></div></div>`
+            `<div class='card'><table><tr><td class='alignCenter'><img src='./img/user-icon.png' class='userIcon'></td></tr></table><div class='card-body'><table><tr><td class='fullName alignCenter'><b>${result.data[i].firstName} ${result.data[i].lastName}</b><a href='mailto:${result.data[i].email}'><i class="fas fa-envelope-open-text"></i></a></td></tr></table><table class='table table-striped mt-3'><tr><td class='alignLeft'><i class="fas fa-network-wired"></i><b>Department</b></td><td class='department alignRight'>${result.data[i].department}</td></tr><tr><td class='alignLeft'><i class="fas fa-search-location"></i><b>Location</b></td><td class='location alignRight'>${result.data[i].location}</td></tr></table><table><tr><td class='alignCenter'><button type='button' class='btn btn-primary btn-sm'>Edit</button></td><td class='alignCenter'><button type='button' class='btn btn-danger btn-sm'>Delete</button></td></tr></table></div></div>`
           );
         }
 
@@ -620,7 +620,7 @@ function employeeMobileFilterByDepartment() {
 
         for (let i = 0; i < result.data.length; i++) {
           $(".records").append(
-            `<div class='card'><table><tr><td class='alignCenter'><img src='./img/user-icon.png' class='userIcon'></td></tr></table><div class='card-body'><table><tr><td class='fullName alignCenter'><b>${result.data[i].firstName} ${result.data[i].lastName}</b><a href='mailto:${result.data[i].email}'><i class="fas fa-envelope-open-text"></i></a></td></tr></table><table class='table table-striped mt-3'><tr><td class='alignLeft'><i class="fas fa-network-wired"></i><b>Department: </b></td><td class='department alignRight'>${result.data[i].department}</td></tr><tr><td class='alignLeft'><i class="fas fa-search-location"></i><b>Location:</b></td><td class='location alignRight'>${result.data[i].location}</td></tr></table><table><tr><td class='alignCenter'><button type='button' class='btn btn-primary btn-sm'>Edit</button></td><td class='alignCenter'><button type='button' class='btn btn-danger btn-sm'>Delete</button></td></tr></table></div></div>`
+            `<div class='card'><table><tr><td class='alignCenter'><img src='./img/user-icon.png' class='userIcon'></td></tr></table><div class='card-body'><table><tr><td class='fullName alignCenter'><b>${result.data[i].firstName} ${result.data[i].lastName}</b><a href='mailto:${result.data[i].email}'><i class="fas fa-envelope-open-text"></i></a></td></tr></table><table class='table table-striped mt-3'><tr><td class='alignLeft'><i class="fas fa-network-wired"></i><b>Department</b></td><td class='department alignRight'>${result.data[i].department}</td></tr><tr><td class='alignLeft'><i class="fas fa-search-location"></i><b>Location</b></td><td class='location alignRight'>${result.data[i].location}</td></tr></table><table><tr><td class='alignCenter'><button type='button' class='btn btn-primary btn-sm'>Edit</button></td><td class='alignCenter'><button type='button' class='btn btn-danger btn-sm'>Delete</button></td></tr></table></div></div>`
           );
         }
 
@@ -675,7 +675,7 @@ function employeeFilterByLocation() {
 
         for (let i = 0; i < result.data.length; i++) {
           $(".records").append(
-            `<div class='card'><table><tr><td class='alignCenter'><img src='./img/user-icon.png' class='userIcon'></td></tr></table><div class='card-body'><table><tr><td class='fullName alignCenter'><b>${result.data[i].firstName} ${result.data[i].lastName}</b><a href='mailto:${result.data[i].email}'><i class="fas fa-envelope-open-text"></i></a></td></tr></table><table class='table table-striped mt-3'><tr><td class='alignLeft'><i class="fas fa-network-wired"></i><b>Department: </b></td><td class='department alignRight'>${result.data[i].department}</td></tr><tr><td class='alignLeft'><i class="fas fa-search-location"></i><b>Location:</b></td><td class='location alignRight'>${result.data[i].location}</td></tr></table><table><tr><td class='alignCenter'><button type='button' class='btn btn-primary btn-sm'>Edit</button></td><td class='alignCenter'><button type='button' class='btn btn-danger btn-sm'>Delete</button></td></tr></table></div></div>`
+            `<div class='card'><table><tr><td class='alignCenter'><img src='./img/user-icon.png' class='userIcon'></td></tr></table><div class='card-body'><table><tr><td class='fullName alignCenter'><b>${result.data[i].firstName} ${result.data[i].lastName}</b><a href='mailto:${result.data[i].email}'><i class="fas fa-envelope-open-text"></i></a></td></tr></table><table class='table table-striped mt-3'><tr><td class='alignLeft'><i class="fas fa-network-wired"></i><b>Department</b></td><td class='department alignRight'>${result.data[i].department}</td></tr><tr><td class='alignLeft'><i class="fas fa-search-location"></i><b>Location</b></td><td class='location alignRight'>${result.data[i].location}</td></tr></table><table><tr><td class='alignCenter'><button type='button' class='btn btn-primary btn-sm'>Edit</button></td><td class='alignCenter'><button type='button' class='btn btn-danger btn-sm'>Delete</button></td></tr></table></div></div>`
           );
         }
         $(".records").append(
@@ -729,7 +729,7 @@ function employeeMobileFilterByLocation() {
 
         for (let i = 0; i < result.data.length; i++) {
           $(".records").append(
-            `<div class='card'><table><tr><td class='alignCenter'><img src='./img/user-icon.png' class='userIcon'></td></tr></table><div class='card-body'><table><tr><td class='fullName alignCenter'><b>${result.data[i].firstName} ${result.data[i].lastName}</b><a href='mailto:${result.data[i].email}'><i class="fas fa-envelope-open-text"></i></a></td></tr></table><table class='table table-striped mt-3'><tr><td class='alignLeft'><i class="fas fa-network-wired"></i><b>Department: </b></td><td class='department alignRight'>${result.data[i].department}</td></tr><tr><td class='alignLeft'><i class="fas fa-search-location"></i><b>Location:</b></td><td class='location alignRight'>${result.data[i].location}</td></tr></table><table><tr><td class='alignCenter'><button type='button' class='btn btn-primary btn-sm'>Edit</button></td><td class='alignCenter'><button type='button' class='btn btn-danger btn-sm'>Delete</button></td></tr></table></div></div>`
+            `<div class='card'><table><tr><td class='alignCenter'><img src='./img/user-icon.png' class='userIcon'></td></tr></table><div class='card-body'><table><tr><td class='fullName alignCenter'><b>${result.data[i].firstName} ${result.data[i].lastName}</b><a href='mailto:${result.data[i].email}'><i class="fas fa-envelope-open-text"></i></a></td></tr></table><table class='table table-striped mt-3'><tr><td class='alignLeft'><i class="fas fa-network-wired"></i><b>Department</b></td><td class='department alignRight'>${result.data[i].department}</td></tr><tr><td class='alignLeft'><i class="fas fa-search-location"></i><b>Location</b></td><td class='location alignRight'>${result.data[i].location}</td></tr></table><table><tr><td class='alignCenter'><button type='button' class='btn btn-primary btn-sm'>Edit</button></td><td class='alignCenter'><button type='button' class='btn btn-danger btn-sm'>Delete</button></td></tr></table></div></div>`
           );
         }
         $(".records").append(
@@ -1183,6 +1183,7 @@ $("#mobileSearchFor").change(function () {
     $("#mobileAddEmployeeBtn").show();
     $("#mobileAddDepartmentBtn").hide();
     $("#mobileAddLocationBtn").hide();
+    $(".mobileFilterDropdown").hide();
     getAllEmployees();
   }
 
@@ -1193,6 +1194,7 @@ $("#mobileSearchFor").change(function () {
     $("#mobileAddEmployeeBtn").hide();
     $("#mobileAddDepartmentBtn").show();
     $("#mobileAddLocationBtn").hide();
+    $(".mobileFilterDropdown").hide();
     getAllDepartments();
   }
 
@@ -1203,6 +1205,7 @@ $("#mobileSearchFor").change(function () {
     $("#mobileAddEmployeeBtn").hide();
     $("#mobileAddDepartmentBtn").hide();
     $("#mobileAddLocationBtn").show();
+    $(".mobileFilterDropdown").hide();
     getAllLocations();
   }
 });

@@ -3,12 +3,12 @@
   overflow-y: scroll;
 
   @include xs {
-    height: 80vh;
+    height: 83vh;
     width: 100vw;
   }
 
   @include md {
-    height: 87vh;
+    height: 84vh;
   }
 
   @include xl {
@@ -81,7 +81,7 @@
     display: none;
 
     @include xs {
-      right: 8px;
+      right: 0px;
     }
 
     @include lg {
